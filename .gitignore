@@ -1,0 +1,12 @@
+.vs
+npl_packages
+*.db
+*.opendb
+*.sdf
+*.suo
+*.log
+Debug
+Release
+bin
+cef3
+ParaWorld

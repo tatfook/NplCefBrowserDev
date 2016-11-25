@@ -6,10 +6,15 @@ cmake_minimum_required(VERSION 2.6)
 project (NplCefBrowser)
 
 set (BoostRoot_DIR "$ENV{BOOST_ROOT}")
-option(ParaEngineClient_SOURCE_DIR "")
+set (CEF3_DIR "${PROJECT_SOURCE_DIR}/deps/cef3")
+option(NPLRuntime_DIR "")
 
 add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
+add_definitions(-DPARAENGINE_CLIENT)
+add_definitions(-DPLATFORM_WINDOWS)
+add_definitions(-DNPLRUNTIME)
+
 
 file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
     src/*.cpp
@@ -18,11 +23,16 @@ file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
 SOURCE_GROUP("src" FILES ${Source_files}) 
 
 include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("${ParaEngineClient_SOURCE_DIR}")
-include_directories("${ParaEngineClient_SOURCE_DIR}/Core")
-include_directories("${PROJECT_SOURCE_DIR}/deps/cef3")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/Core")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/renderer")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/math")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/util")
+include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/IO")
+include_directories("${CEF3_DIR}")
 include_directories("${BoostRoot_DIR}")
 
+include_directories("D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include")
 IF(MSVC)
 	# statically link MSVC to reduce dependancies
 	foreach(flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)
@@ -69,15 +79,30 @@ if(MSVC)
 	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+)$" "\\1" RELEASE_EXE_NAME "${RELEASE_EXE_PATH}" )
 
 	if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/../ParaWorld/bin64/" )
+		set( PARAWORLD_BIN_DIR "${NPLRuntime_DIR}/ParaWorld/bin64/" )
 	else()
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/../ParaWorld/" )
+		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/ParaWorld/" )
 	endif()
 
+
+	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+     message("debug mode")
 	ADD_CUSTOM_COMMAND(
 	   TARGET NplCefBrowser
 	   POST_BUILD
 	   COMMAND ${CMAKE_COMMAND} -E copy ${DEBUG_EXE_PATH} ${PARAWORLD_BIN_DIR}${DEBUG_EXE_NAME}
-	   COMMAND ${CMAKE_COMMAND} -E copy ${RELEASE_EXE_PATH} ${PARAWORLD_BIN_DIR}${RELEASE_EXE_NAME}
+	   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_DIR}/Debug/libcef.dll ${PARAWORLD_BIN_DIR}libcef.dll
 	)
+ 	endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+
+	 if (CMAKE_BUILD_TYPE STREQUAL "Release")
+     message("release mode")
+	ADD_CUSTOM_COMMAND(
+	   TARGET NplCefBrowser
+	   POST_BUILD
+	   COMMAND ${CMAKE_COMMAND} -E copy ${RELEASE_EXE_PATH} ${PARAWORLD_BIN_DIR}${RELEASE_EXE_NAME}
+	   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_DIR}/Release/libcef.dll ${PARAWORLD_BIN_DIR}libcef.dll
+	)
+ 	endif (CMAKE_BUILD_TYPE STREQUAL "Release")
+	
 endif(MSVC)

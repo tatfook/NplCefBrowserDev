@@ -5,9 +5,8 @@
 #include <fstream>
 #include "Core/INPLRuntimeState.h"
 #include "Core/NPLInterface.hpp"
-
+#include "Engine/ParaEngineApp.h"
 #include "NplCefBrowserHandler.h"
-
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/views/cef_browser_view.h"
@@ -35,7 +34,7 @@ extern "C" {
 	CORE_EXPORT_DECL unsigned long LibVersion();
 	CORE_EXPORT_DECL ParaEngine::ClassDescriptor* LibClassDesc(int i);
 	CORE_EXPORT_DECL void LibInit();
-	CORE_EXPORT_DECL void CreateBrowser();
+	CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid);
 #ifdef __cplusplus
 }   /* extern "C" */
 #endif
@@ -130,10 +129,7 @@ CORE_EXPORT_DECL ClassDescriptor* LibClassDesc(int i)
 CORE_EXPORT_DECL void LibInit()
 {
 }
-CORE_EXPORT_DECL void CreateBrowser()
-{
-	NplCefBrowser& mc_importer = NplCefBrowser::CreateGetSingleton();
-}
+
 #ifdef WIN32
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, ULONG fdwReason, LPVOID lpvReserved)
 #else
@@ -188,6 +184,26 @@ namespace {
 
 }  // namespace
 
+CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
+{
+	if (nType == ParaEngine::PluginActType_STATE)
+	{
+		NPL::INPLRuntimeState* pState = (NPL::INPLRuntimeState*)pVoid;
+		const char* sMsg = pState->GetCurrentMsg();
+		int nMsgLength = pState->GetCurrentMsgLength();
+
+		NPLInterface::NPLObjectProxy tabMsg = NPLInterface::NPLHelper::MsgStringToNPLTable(sMsg);
+		const std::string& sCmd = tabMsg["cmd"];
+
+		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+
+		if (sCmd == "create")
+		{
+			browser.Create();
+		}
+	}
+}
+
 NplCefBrowser::NplCefBrowser()
 {
 
@@ -206,21 +222,21 @@ NplCefBrowser& NplCefBrowser::CreateGetSingleton()
 
 void NplCefBrowser::Create()
 {
-	CEF_REQUIRE_UI_THREAD();
-
-	CefRefPtr<CefCommandLine> command_line =
-		CefCommandLine::GetGlobalCommandLine();
-
-#if defined(OS_WIN) || defined(OS_LINUX)
-	// Create the browser using the Views framework if "--use-views" is specified
-	// via the command-line. Otherwise, create the browser using the native
-	// platform framework. The Views framework is currently only supported on
-	// Windows and Linux.
-	const bool use_views = command_line->HasSwitch("use-views");
-#else
-	const bool use_views = false;
-#endif
-
+	//CEF_REQUIRE_UI_THREAD();
+//
+//	CefRefPtr<CefCommandLine> command_line =
+//		CefCommandLine::GetGlobalCommandLine();
+//
+//#if defined(OS_WIN) || defined(OS_LINUX)
+//	// Create the browser using the Views framework if "--use-views" is specified
+//	// via the command-line. Otherwise, create the browser using the native
+//	// platform framework. The Views framework is currently only supported on
+//	// Windows and Linux.
+//	const bool use_views = command_line->HasSwitch("use-views");
+//#else
+//	const bool use_views = false;
+//#endif
+	bool use_views = false;
 	// NplCefBrowserHandler implements browser-level callbacks.
 	CefRefPtr<NplCefBrowserHandler> handler(new NplCefBrowserHandler(use_views));
 
@@ -231,9 +247,9 @@ void NplCefBrowser::Create()
 
 	// Check if a "--url=" value was provided via the command-line. If so, use
 	// that instead of the default URL.
-	url = command_line->GetSwitchValue("url");
+	//url = command_line->GetSwitchValue("url");
 	if (url.empty())
-		url = "http://www.google.com";
+		url = "http://www.163.com";
 
 	if (use_views) {
 		// Create the BrowserView.
@@ -250,7 +266,7 @@ void NplCefBrowser::Create()
 #if defined(OS_WIN)
 		// On Windows we need to specify certain flags that will be passed to
 		// CreateWindowEx().
-		window_info.SetAsPopup(NULL, "cefsimple");
+		window_info.SetAsPopup(CParaEngineApp::GetInstance()->GetMainWindow(), "cefsimple");
 #endif
 
 		// Create the first browser window.

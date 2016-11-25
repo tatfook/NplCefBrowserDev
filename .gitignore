@@ -1,5 +1,4 @@
 .vs
-npl_packages
 *.db
 *.opendb
 *.sdf
@@ -8,5 +7,5 @@ npl_packages
 Debug
 Release
 bin
-cef3
+deps
 ParaWorld

@@ -20,7 +20,7 @@ SOURCE_GROUP("src" FILES ${Source_files})
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${ParaEngineClient_SOURCE_DIR}")
 include_directories("${ParaEngineClient_SOURCE_DIR}/Core")
-include_directories("${PROJECT_SOURCE_DIR}/cef3")
+include_directories("${PROJECT_SOURCE_DIR}/deps/cef3")
 include_directories("${BoostRoot_DIR}")
 
 IF(MSVC)
@@ -48,7 +48,7 @@ ENDIF(MSVC)
 
 SET(CMAKE_DEBUG_POSTFIX "_d")
 
-link_directories(${PROJECT_SOURCE_DIR}/cef3/${CMAKE_BUILD_TYPE})
+link_directories(${PROJECT_SOURCE_DIR}/deps/cef3/${CMAKE_BUILD_TYPE})
 
 
 # add the executable
@@ -69,9 +69,9 @@ if(MSVC)
 	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+)$" "\\1" RELEASE_EXE_NAME "${RELEASE_EXE_PATH}" )
 
 	if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/ParaWorld/bin64/" )
+		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/../ParaWorld/bin64/" )
 	else()
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/ParaWorld/" )
+		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/../ParaWorld/" )
 	endif()
 
 	ADD_CUSTOM_COMMAND(

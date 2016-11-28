@@ -20,5 +20,5 @@ public:
 
 
 	static NplCefBrowser& CreateGetSingleton();
-    void Create();
+    void Create(int parentHandle,std::string url);
 };

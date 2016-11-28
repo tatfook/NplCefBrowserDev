@@ -1,18 +1,30 @@
 # NplCefBrowserDev
 ### Build NplCefBrowser on Windows
 - Set BOOST_ROOT environment
-- If you haven't NPLRuntime please download it from [NPLRuntime](https://github.com/LiXizhi/NPLRuntime.git)
-- Download cef3 binary [Branch 2704-Windows 32bit](https://cefbuilds.com/) and unzip into:[deps/cef3]
-- Open Developer Command Prompt for VS2015 and run build-debug.bat or build-release.bat  
+- Create a folder which named "NCefWorkSpace"
+- Download [NPLRuntime](https://github.com/LiXizhi/NPLRuntime.git) and upzip it into [NCefWorkSpace/NPLRuntime]
+- Download [NplCefBrowserDev](https://github.com/tatfook/NplCefBrowserDev.git) and upzip it into [NCefWorkSpace/NplCefBrowserDev]
+- Download cef3 binary [Branch 2704-Windows 32bit](https://cefbuilds.com/) and unzip into:[NCefWorkSpace/NplCefBrowserDev/deps/cef3]
+- Open Developer Command Prompt for VS2015 and run NCefWorkSpace/NplCefBrowserDev/build-debug.bat or NCefWorkSpace/NplCefBrowserDev/build-release.bat  
 - Setp 1: Build libcef_dll_wrapper.lib
 - Setp 2: Build NplCefBrowser.dll
-- NplCefBrowser.dll will be located at folder: ../NPLRuntime/ParaWorld
+- With debug    mode these libs will be built at NCefWorkSpace/NPLRuntime/ParaWorld: NplCefBrowser_d.dll NplCefBrowser_d.pdb libcef.dll
+- With release  mode these libs will be built at NCefWorkSpace/NPLRuntime/ParaWorld: NplCefBrowser.dll NplCefBrowser.pdb libcef.dll
 
 ### Main Folder's structure
 ```lua
-NPLRuntime
-        ----ParaWorld
-NplCefBrowser
-        ----deps/NPLRuntime
-        ----deps/cef3
+NCefWorkSpace
+        NPLRuntime
+                ParaWorld
+                        NplCefBrowser.dll
+                        NplCefBrowser.pdb
+                        libcef.dll
+        NplCefBrowser
+                deps/cef3
+```
+```lua
+--test code
+local parentHandle = ParaGlobal.GetMainWindow();
+local dll_name = "NplCefBrowser_d.dll";--debug mode
+NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, url = "http://www.wikicraft.cn/"}); 
 ```

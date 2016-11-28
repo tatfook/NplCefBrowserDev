@@ -11,10 +11,6 @@ option(NPLRuntime_DIR "")
 
 add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
-add_definitions(-DPARAENGINE_CLIENT)
-add_definitions(-DPLATFORM_WINDOWS)
-add_definitions(-DNPLRUNTIME)
-
 
 file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
     src/*.cpp
@@ -72,16 +68,18 @@ IF(WIN32)
 ENDIF(WIN32)
 
 if(MSVC)
-	get_target_property(DEBUG_EXE_PATH NplCefBrowser DEBUG_LOCATION)
-	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+)$" "\\1" DEBUG_EXE_NAME "${DEBUG_EXE_PATH}" )
+	get_target_property(DEBUG_DLL_PATH NplCefBrowser DEBUG_LOCATION)
+	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+).dll$" "\\1" DEBUG_DLL_NAME "${DEBUG_DLL_PATH}" )
+     message("DEBUG_DLL_NAME")
+     message(${DEBUG_DLL_NAME})
 
-	get_target_property(RELEASE_EXE_PATH NplCefBrowser RELEASE_LOCATION)
-	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+)$" "\\1" RELEASE_EXE_NAME "${RELEASE_EXE_PATH}" )
+	get_target_property(RELEASE_DLL_PATH NplCefBrowser RELEASE_LOCATION)
+	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+).dll$" "\\1" RELEASE_DLL_NAME "${RELEASE_DLL_PATH}" )
 
 	if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-		set( PARAWORLD_BIN_DIR "${NPLRuntime_DIR}/ParaWorld/bin64/" )
+		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}/ParaWorld/bin64/" )
 	else()
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/ParaWorld/" )
+		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}/ParaWorld/" )
 	endif()
 
 
@@ -90,7 +88,8 @@ if(MSVC)
 	ADD_CUSTOM_COMMAND(
 	   TARGET NplCefBrowser
 	   POST_BUILD
-	   COMMAND ${CMAKE_COMMAND} -E copy ${DEBUG_EXE_PATH} ${PARAWORLD_BIN_DIR}${DEBUG_EXE_NAME}
+	   COMMAND ${CMAKE_COMMAND} -E copy ${DEBUG_DLL_PATH} ${PARAWORLD_BIN_DIR}${DEBUG_DLL_NAME}.dll
+	   COMMAND ${CMAKE_COMMAND} -E copy ${DEBUG_DLL_PATH} ${PARAWORLD_BIN_DIR}${DEBUG_DLL_NAME}.pdb
 	   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_DIR}/Debug/libcef.dll ${PARAWORLD_BIN_DIR}libcef.dll
 	)
  	endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
@@ -100,7 +99,7 @@ if(MSVC)
 	ADD_CUSTOM_COMMAND(
 	   TARGET NplCefBrowser
 	   POST_BUILD
-	   COMMAND ${CMAKE_COMMAND} -E copy ${RELEASE_EXE_PATH} ${PARAWORLD_BIN_DIR}${RELEASE_EXE_NAME}
+	   COMMAND ${CMAKE_COMMAND} -E copy ${RELEASE_DLL_PATH} ${PARAWORLD_BIN_DIR}${RELEASE_DLL_NAME}.dll
 	   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_DIR}/Release/libcef.dll ${PARAWORLD_BIN_DIR}libcef.dll
 	)
  	endif (CMAKE_BUILD_TYPE STREQUAL "Release")

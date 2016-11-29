@@ -8,6 +8,7 @@ project (NplCefBrowser)
 set (BoostRoot_DIR "$ENV{BOOST_ROOT}")
 set (CEF3_DIR "${PROJECT_SOURCE_DIR}/deps/cef3")
 option(NPLRuntime_DIR "")
+set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
 
 add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
@@ -17,14 +18,15 @@ file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
 	src/*.h
     )
 SOURCE_GROUP("src" FILES ${Source_files}) 
-
+message("NPLRuntime_Absolutely_DIR============")
+message("${NPLRuntime_Absolutely_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/Core")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/renderer")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/math")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/util")
-include_directories("${NPLRuntime_DIR}/Client/trunk/ParaEngineClient/IO")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/Core")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/renderer")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/math")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/util")
+include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/IO")
 include_directories("${CEF3_DIR}")
 include_directories("${BoostRoot_DIR}")
 
@@ -70,21 +72,17 @@ ENDIF(WIN32)
 if(MSVC)
 	get_target_property(DEBUG_DLL_PATH NplCefBrowser DEBUG_LOCATION)
 	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+).dll$" "\\1" DEBUG_DLL_NAME "${DEBUG_DLL_PATH}" )
-     message("DEBUG_DLL_NAME")
-     message(${DEBUG_DLL_NAME})
-
 	get_target_property(RELEASE_DLL_PATH NplCefBrowser RELEASE_LOCATION)
 	STRING(REGEX REPLACE "^.*[/\\]([^/\\]+).dll$" "\\1" RELEASE_DLL_NAME "${RELEASE_DLL_PATH}" )
 
 	if( CMAKE_SIZEOF_VOID_P EQUAL 8 )
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}/ParaWorld/bin64/" )
+		set( PARAWORLD_BIN_DIR "${NPLRuntime_Absolutely_DIR}/ParaWorld/bin64/" )
 	else()
-		set( PARAWORLD_BIN_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}/ParaWorld/" )
+		set( PARAWORLD_BIN_DIR "${NPLRuntime_Absolutely_DIR}/ParaWorld/" )
 	endif()
 
 
 	if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-     message("debug mode")
 	ADD_CUSTOM_COMMAND(
 	   TARGET NplCefBrowser
 	   POST_BUILD
@@ -95,7 +93,6 @@ if(MSVC)
  	endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 
 	 if (CMAKE_BUILD_TYPE STREQUAL "Release")
-     message("release mode")
 	ADD_CUSTOM_COMMAND(
 	   TARGET NplCefBrowser
 	   POST_BUILD

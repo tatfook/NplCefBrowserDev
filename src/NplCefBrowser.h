@@ -10,15 +10,3 @@
 // ParaEngine includes
 #include "PluginAPI.h"
 #include <memory>
-
-
-class NplCefBrowser
-{
-public:
-	NplCefBrowser();
-	~NplCefBrowser();
-
-
-	static NplCefBrowser& CreateGetSingleton();
-    void Create(int parentHandle,std::string url);
-};

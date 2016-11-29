@@ -5,6 +5,7 @@
 - Download [NPLRuntime](https://github.com/LiXizhi/NPLRuntime.git) and upzip it into [NCefWorkSpace/NPLRuntime]
 - Download [NplCefBrowserDev](https://github.com/tatfook/NplCefBrowserDev.git) and upzip it into [NCefWorkSpace/NplCefBrowserDev]
 - Download cef3 binary [Branch 2704-Windows 32bit](https://cefbuilds.com/) and unzip into:[NCefWorkSpace/NplCefBrowserDev/deps/cef3]
+- Build NPLRumtime(Optional):Please see [NCefWorkSpace/NPLRuntime/build_win32.bat]
 - Open Developer Command Prompt for VS2015 and run NCefWorkSpace/NplCefBrowserDev/build-debug.bat or NCefWorkSpace/NplCefBrowserDev/build-release.bat  
 - Setp 1: Build libcef_dll_wrapper.lib
 - Setp 2: Build NplCefBrowser.dll
@@ -24,7 +25,8 @@ NCefWorkSpace
 ```
 ```lua
 --test code
-local parentHandle = ParaGlobal.GetMainWindow();
+local engine_attr = ParaEngine.GetAttributeObject();
+local parentHandle = engine_attr:GetField("AppHWND", 0);
 local dll_name = "NplCefBrowser_d.dll";--debug mode
 NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, url = "http://www.wikicraft.cn/"}); 
 ```

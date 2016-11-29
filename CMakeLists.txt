@@ -18,8 +18,6 @@ file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
 	src/*.h
     )
 SOURCE_GROUP("src" FILES ${Source_files}) 
-message("NPLRuntime_Absolutely_DIR============")
-message("${NPLRuntime_Absolutely_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/Core")
@@ -30,7 +28,6 @@ include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/
 include_directories("${CEF3_DIR}")
 include_directories("${BoostRoot_DIR}")
 
-include_directories("D:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include")
 IF(MSVC)
 	# statically link MSVC to reduce dependancies
 	foreach(flag_var CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE CMAKE_C_FLAGS_MINSIZEREL CMAKE_C_FLAGS_RELWITHDEBINFO)

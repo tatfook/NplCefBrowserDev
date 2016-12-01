@@ -1,67 +1,42 @@
 #include "NplCefBrowserApp.h"
 
 #include <string>
-
-#include "NplCefBrowserHandler.h"
+#include <thread> 
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/views/cef_browser_view.h"
 #include "include/views/cef_window.h"
 #include "include/wrapper/cef_helpers.h"
 #include "Core/NPLInterface.hpp"
-namespace {
 
-	class WXRequestContextHandler :public CefRequestContextHandler
-	{
-	public:
-		WXRequestContextHandler() {};
-		~WXRequestContextHandler() {};
-		CefRefPtr<CefCookieManager> GetCookieManager() OVERRIDE {
+#include "cefclient/common/client_app.h"
+#include "cefclient/common/client_app_other.h"
+#include "cefclient/common/client_switches.h"
+#include "cefclient/browser/client_app_browser.h"
+#include "cefclient/renderer/client_app_renderer.h"
+#include "cefclient/browser/main_context_impl.h"
+#include "cefclient/browser/main_message_loop_multithreaded_win.h"
+#include "cefclient/browser/main_message_loop_std.h"
+#include "cefclient/browser/test_runner.h"
+using namespace client;
 
-			return CefCookieManager::CreateManager("F:\\CefCookie", FALSE, NULL);
-		}
-	private:
-		// Include the default reference counting implementation.
-		IMPLEMENT_REFCOUNTING(WXRequestContextHandler);
-	};
-
-	// When using the Views framework this object provides the delegate
-	// implementation for the CefWindow that hosts the Views-based browser.
-	class SimpleWindowDelegate : public CefWindowDelegate {
-	public:
-		explicit SimpleWindowDelegate(CefRefPtr<CefBrowserView> browser_view)
-			: browser_view_(browser_view) {
-		}
-
-		void OnWindowCreated(CefRefPtr<CefWindow> window) OVERRIDE {
-			// Add the browser view and show the window.
-			window->AddChildView(browser_view_);
-			window->Show();
-
-			// Give keyboard focus to the browser view.
-			browser_view_->RequestFocus();
-		}
-
-		void OnWindowDestroyed(CefRefPtr<CefWindow> window) OVERRIDE {
-			browser_view_ = NULL;
-		}
-
-		bool CanClose(CefRefPtr<CefWindow> window) OVERRIDE {
-			// Allow the window to close if the browser says it's OK.
-			CefRefPtr<CefBrowser> browser = browser_view_->GetBrowser();
-			if (browser)
-				return browser->GetHost()->TryCloseBrowser();
-			return true;
-		}
-
-	private:
-		CefRefPtr<CefBrowserView> browser_view_;
-
-		IMPLEMENT_REFCOUNTING(SimpleWindowDelegate);
-		DISALLOW_COPY_AND_ASSIGN(SimpleWindowDelegate);
-	};
-
-}  // namespace
+/** @def custom user messages that are posted from the main thread to the window thread. */
+#define PE_WM_NPLCEFBROWSER_FIRST					WM_USER+2350
+#define PE_WM_NPLCEFBROWSER_LOADURL				WM_USER+2351
+#define PE_WM_NPLCEFBROWSER_ONSIZE_CHANGED			WM_USER+2352
+#define PE_WM_NPLCEFBROWSER_SETCAPTURE				WM_USER+2354
+#define PE_WM_NPLCEFBROWSER_RELEASECAPTURE			WM_USER+2355
+#define PE_WM_NPLCEFBROWSER_SETFOCUS				WM_USER+2356
+#define PE_WM_NPLCEFBROWSER_QUIT					WM_USER+2357
+#define PE_WM_NPLCEFBROWSER_CREATE_WINDOW			WM_USER+2359
+#define PE_WM_NPLCEFBROWSER_REFRESH				WM_USER+2360
+#define PE_WM_NPLCEFBROWSER_STOP					WM_USER+2361
+#define PE_WM_NPLCEFBROWSER_GOBACK					WM_USER+2362
+#define PE_WM_NPLCEFBROWSER_GOFORWARD				WM_USER+2363
+#define PE_WM_NPLCEFBROWSER_SETCONTENT				WM_USER+2364
+#define PE_WM_NPLCEFBROWSER_GETCONTENT				WM_USER+2365
+#define PE_WM_NPLCEFBROWSER_FINDTEXT				WM_USER+2366
+#define PE_WM_NPLCEFBROWSER_LAST					WM_USER+2367
 
 NplCefBrowserApp::NplCefBrowserApp() {
 }
@@ -77,43 +52,148 @@ NplCefBrowserApp& NplCefBrowserApp::CreateGetSingleton()
 	return g_singleton;
 }
 
-void NplCefBrowserApp::Create(int parentHandle, std::string url)
+void NplCefBrowserApp::Create(int moduleHandle, int parentHandle, std::string url)
 {
-	//CEF_REQUIRE_UI_THREAD();
-	OUTPUT_LOG("NplCefBrowser create:parentHandle %d,url %s\r\n", parentHandle, url.c_str());
-	bool use_views = false;
-	// NplCefBrowserHandler implements browser-level callbacks.
-	CefRefPtr<NplCefBrowserHandler> handler(new NplCefBrowserHandler(use_views));
-
-	// Specify CEF browser settings here.
-	CefBrowserSettings browser_settings;
-
+	std::thread t(&NplCefBrowserApp::CreateThread, this, moduleHandle, parentHandle,url);
+	t.detach();
+}
+bool NplCefBrowserApp::MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (message == PE_WM_NPLCEFBROWSER_CREATE_WINDOW)
+	{
+		int i = 0;
+	}
+	return true;
+}
+void NplCefBrowserApp::CreateThread(int moduleHandle, int parentHandle, std::string url)
+{
 	if (url.empty())
 	{
-		url = "http://www.wikicraft.cn/";
+		url = "http://www.wikicraft.cn";
 	}
-	if (use_views) {
-		// Create the BrowserView.
-		CefRefPtr<CefBrowserView> browser_view = CefBrowserView::CreateBrowserView(
-			handler, url, browser_settings, NULL, NULL);
-
-		// Create the Window. It will show itself after creation.
-		CefWindow::CreateTopLevelWindow(new SimpleWindowDelegate(browser_view));
+	HWND hWnd = (HWND)parentHandle;
+	HINSTANCE instance = (HINSTANCE)moduleHandle;
+	HINSTANCE hInstance = GetModuleHandle(NULL);
+	HWND m_hBrowserHostWnd = CreateWindowExW(WS_EX_NOPARENTNOTIFY, L"static", NULL, WS_CHILD,
+		100, 100, 400, 300,
+		hWnd, NULL, hInstance, NULL);
+	DWORD m_dwWinThreadID;
+	if (m_hBrowserHostWnd != 0)
+	{
+		m_dwWinThreadID = ::GetWindowThreadProcessId(m_hBrowserHostWnd, NULL);
+		PostThreadMessage(m_dwWinThreadID, PE_WM_NPLCEFBROWSER_CREATE_WINDOW, 1, 0);
 	}
-	else {
-		// Information used when creating the native window.
-		CefWindowInfo window_info;
-
-		CefWindowHandle wnd = (CefWindowHandle)parentHandle;
-		//window_info.SetAsPopup(wnd, "cefsimple");
-
-		CefRequestContextSettings settings;
-		CefRefPtr<CefRequestContext> conctex = CefRequestContext::CreateContext(settings, new WXRequestContextHandler);
-		RECT windowRect = { 0, 0, 800, 600 };
-		window_info.SetAsChild(wnd, windowRect);
-		OUTPUT_LOG("window_info.SetAsChild\r\n");
-		// Create the first browser window.
-		CefBrowserHost::CreateBrowser(window_info, handler, url, browser_settings, conctex);
-		OUTPUT_LOG("CefBrowserHost::CreateBrowser\r\n");
+	else
+	{
+		return;
 	}
+	//
+	// Dispatching window messages in this window thread. 
+	//
+	SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_CLIPCHILDREN);
+	::ShowWindow(m_hBrowserHostWnd, SW_SHOW);
+	// Now we're ready to receive and process Windows messages.
+	MSG  msg;
+	msg.message = WM_NULL;
+	PeekMessageW(&msg, NULL, 0U, 0U, PM_NOREMOVE);
+
+	while (WM_QUIT != msg.message)
+	{
+		if (GetMessageW(&msg, NULL, 0U, 0U) != 0)
+		{
+			if (MsgProcCustom(msg.message, msg.wParam, msg.lParam) == 0)
+			{
+				// Translate and dispatch the message
+				TranslateMessage(&msg);
+				DispatchMessageW(&msg);
+			}
+}
+	}
+	OUTPUT_LOG("web browser window thread exit\n");
+	m_dwWinThreadID = 0;
+}
+void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::string url)
+{
+	if (url.empty())
+	{
+		url = "http://www.wikicraft.cn";
+	}
+	HWND hWnd = (HWND)parentHandle;
+	HINSTANCE instance = (HINSTANCE)moduleHandle;
+
+	// Enable High-DPI support on Windows 7 or newer.
+	CefEnableHighDPISupport();
+
+	CefMainArgs main_args(instance);
+
+	void* sandbox_info = NULL;
+
+#if defined(CEF_USE_SANDBOX)
+	// Manage the life span of the sandbox information object. This is necessary
+	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+	CefScopedSandboxInfo scoped_sandbox;
+	sandbox_info = scoped_sandbox.sandbox_info();
+#endif
+
+	// Parse command-line arguments.
+	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
+	command_line->InitFromString(::GetCommandLineW());
+
+	// Create a ClientApp of the correct type.
+	CefRefPtr<CefApp> app;
+	ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+	if (process_type == ClientApp::BrowserProcess)
+		app = new ClientAppBrowser();
+	else if (process_type == ClientApp::RendererProcess)
+		app = new ClientAppRenderer();
+	else if (process_type == ClientApp::OtherProcess)
+		app = new ClientAppOther();
+
+	// Execute the secondary process, if any.
+	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
+	if (exit_code >= 0)
+		return;
+
+	// Create the main context object.
+	scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+
+	CefSettings settings;
+
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif
+
+	// Populate the settings based on command line arguments.
+	context->PopulateSettings(&settings);
+	settings.multi_threaded_message_loop = true;
+	// Create the main message loop object.
+	scoped_ptr<MainMessageLoop> message_loop;
+	if (settings.multi_threaded_message_loop)
+		message_loop.reset(new MainMessageLoopMultithreadedWin);
+	else
+		message_loop.reset(new MainMessageLoopStd);
+
+	// Initialize CEF.
+	context->Initialize(main_args, settings, app, sandbox_info);
+
+	// Register scheme handlers.
+	test_runner::RegisterSchemeHandlers();
+
+	// Create the first window.
+	context->GetRootWindowManager()->CreateRootWindow(
+		!command_line->HasSwitch(switches::kHideControls),  // Show controls.
+		settings.windowless_rendering_enabled ? true : false,
+		CefRect(),        // Use default system size.
+		url);   // Use default URL.
+
+				// Run the message loop. This will block until Quit() is called by the
+				// RootWindowManager after all windows have been destroyed.
+	int result = message_loop->Run();
+
+	// Shut down CEF.
+	context->Shutdown();
+
+	// Release objects in reverse order of creation.
+	message_loop.reset();
+	context.reset();
 }

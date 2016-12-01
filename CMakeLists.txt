@@ -12,13 +12,42 @@ set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
 
 add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-DNOMINMAX)
 
-file (GLOB Source_files RELATIVE ${PROJECT_SOURCE_DIR}
-    src/*.cpp
-	src/*.h
-    )
-SOURCE_GROUP("src" FILES ${Source_files}) 
+SET(NplCefBrowser_Source_files "")
+
+file (GLOB src_files ${PROJECT_SOURCE_DIR}/src/*.*)
+SOURCE_GROUP("src" FILES ${src_files}) 
+list(APPEND NplCefBrowser_Source_files ${src_files})
+# common
+file (GLOB common_files ${PROJECT_SOURCE_DIR}/src/cefclient/common/*.*)
+SOURCE_GROUP("src\\cefclient\\common" FILES ${common_files}) 
+list(APPEND NplCefBrowser_Source_files ${common_files})
+
+# browser
+file (GLOB browser_files ${PROJECT_SOURCE_DIR}/src/cefclient/browser/*.*)
+SOURCE_GROUP("src\\cefclient\\browser" FILES ${browser_files}) 
+list(APPEND NplCefBrowser_Source_files ${browser_files})
+
+# renderer
+file (GLOB renderer_files ${PROJECT_SOURCE_DIR}/src/cefclient/renderer/*.*)
+SOURCE_GROUP("src\\cefclient\\renderer" FILES ${renderer_files}) 
+list(APPEND NplCefBrowser_Source_files ${renderer_files})
+
+# resources
+file (GLOB resources_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/*.*)
+SOURCE_GROUP("src\\cefclient\\resources" FILES ${resources_files}) 
+list(APPEND NplCefBrowser_Source_files ${resources_files})
+
+# resources_win
+file (GLOB resources_win_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/win/*.*)
+SOURCE_GROUP("src\\cefclient\\resources\\win" FILES ${resources_win_files}) 
+list(APPEND NplCefBrowser_Source_files ${resources_win_files})
+
+
 include_directories("${PROJECT_SOURCE_DIR}")
+include_directories("${PROJECT_SOURCE_DIR}/src")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/Core")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/renderer")
@@ -55,10 +84,25 @@ SET(CMAKE_DEBUG_POSTFIX "_d")
 
 link_directories(${PROJECT_SOURCE_DIR}/deps/cef3/${CMAKE_BUILD_TYPE})
 
+ # Libraries required by cef_sandbox.lib.
+    set(CEF_SANDBOX_STANDARD_LIBS
+      dbghelp.lib
+      psapi.lib
+      version.lib
+      winmm.lib
+      )
+
+ # Standard libraries.
+  set(CEF_STANDARD_LIBS
+    comctl32.lib
+    rpcrt4.lib
+    shlwapi.lib
+    ws2_32.lib
+    )
 
 # add the executable
-add_library(NplCefBrowser SHARED ${Source_files})
-target_link_libraries(NplCefBrowser libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib)
+add_library(NplCefBrowser SHARED ${NplCefBrowser_Source_files})
+target_link_libraries(NplCefBrowser libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}" glu32.lib opengl32.lib)
 
 
 

@@ -1,4 +1,4 @@
-#include "NplCefBrowser.h"
+#include "stdafx.h"
 
 #include <string>
 #include <sstream>
@@ -159,8 +159,9 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		{
 			NplCefBrowserApp& browser_app = NplCefBrowserApp::CreateGetSingleton();
 			double parentHandle = tabMsg["parentHandle"];
+			double moduleHandle = tabMsg["moduleHandle"];
 			const std::string& url = tabMsg["url"];
-			browser_app.Create((int)parentHandle, url);
+			browser_app.Create((int)moduleHandle, (int)parentHandle, url);
 		}
 	}
 }

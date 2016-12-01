@@ -27,6 +27,14 @@ NCefWorkSpace
 --test code
 local engine_attr = ParaEngine.GetAttributeObject();
 local parentHandle = engine_attr:GetField("AppHWND", 0);
+local moduleHandle = engine_attr:GetField("ModuleHandle", 0);
+commonlib.echo("=========moduleHandle");
+commonlib.echo(moduleHandle);
 local dll_name = "NplCefBrowser_d.dll";--debug mode
-NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, url = "http://www.wikicraft.cn/"}); 
+NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, moduleHandle = moduleHandle, url = "http://www.wikicraft.cn/"}); 
+```
+```lua
+deps/cef3/include/cef_v8.h
+static CefRefPtr<CefV8Value> CreateInt(int value); --int instead of int32
+static CefRefPtr<CefV8Value> CreateUInt(unsigned int value); --unsigned int intead of uint32
 ```

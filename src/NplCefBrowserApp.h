@@ -1,5 +1,5 @@
 #pragma once
-#include "PluginAPI.h"
+#include "stdafx.h"
 #include "include/cef_app.h"
 
 // Implement application-level callbacks for the browser process.
@@ -18,9 +18,12 @@ public:
 	virtual void OnContextInitialized() OVERRIDE;
 
 	static NplCefBrowserApp& CreateGetSingleton();
-	void Create(int parentHandle, std::string url);
+	void Create(int moduleHandle, int parentHandle, std::string url);
 
 private:
+	bool MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam);
+	void CreateThread(int moduleHandle, int parentHandle, std::string url);
+	void CreateCefClient(int moduleHandle, int parentHandle, std::string url);
 	// Include the default reference counting implementation.
 	IMPLEMENT_REFCOUNTING(NplCefBrowserApp);
 };

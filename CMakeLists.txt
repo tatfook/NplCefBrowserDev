@@ -20,30 +20,35 @@ SET(NplCefBrowser_Source_files "")
 file (GLOB src_files ${PROJECT_SOURCE_DIR}/src/*.*)
 SOURCE_GROUP("src" FILES ${src_files}) 
 list(APPEND NplCefBrowser_Source_files ${src_files})
-# common
+# cefclient/common
 file (GLOB common_files ${PROJECT_SOURCE_DIR}/src/cefclient/common/*.*)
 SOURCE_GROUP("src\\cefclient\\common" FILES ${common_files}) 
 list(APPEND NplCefBrowser_Source_files ${common_files})
 
-# browser
+# cefclient/browser
 file (GLOB browser_files ${PROJECT_SOURCE_DIR}/src/cefclient/browser/*.*)
 SOURCE_GROUP("src\\cefclient\\browser" FILES ${browser_files}) 
 list(APPEND NplCefBrowser_Source_files ${browser_files})
 
-# renderer
+# cefclient/renderer
 file (GLOB renderer_files ${PROJECT_SOURCE_DIR}/src/cefclient/renderer/*.*)
 SOURCE_GROUP("src\\cefclient\\renderer" FILES ${renderer_files}) 
 list(APPEND NplCefBrowser_Source_files ${renderer_files})
 
-# resources
+# cefclient/resources
 file (GLOB resources_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/*.*)
 SOURCE_GROUP("src\\cefclient\\resources" FILES ${resources_files}) 
 list(APPEND NplCefBrowser_Source_files ${resources_files})
 
-# resources_win
+# cefclient/resources/win
 file (GLOB resources_win_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/win/*.*)
 SOURCE_GROUP("src\\cefclient\\resources\\win" FILES ${resources_win_files}) 
 list(APPEND NplCefBrowser_Source_files ${resources_win_files})
+
+# cefsimple
+file (GLOB cefsimple_files ${PROJECT_SOURCE_DIR}/src/cefsimple/*.*)
+SOURCE_GROUP("src\\cefsimple" FILES ${cefsimple_files}) 
+list(APPEND NplCefBrowser_Source_files ${cefsimple_files})
 
 
 include_directories("${PROJECT_SOURCE_DIR}")

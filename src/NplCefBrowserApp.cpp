@@ -18,6 +18,8 @@
 #include "cefclient/browser/main_message_loop_multithreaded_win.h"
 #include "cefclient/browser/main_message_loop_std.h"
 #include "cefclient/browser/test_runner.h"
+
+#include "cefsimple/simple_app.h"
 using namespace client;
 
 /** @def custom user messages that are posted from the main thread to the window thread. */
@@ -54,7 +56,7 @@ NplCefBrowserApp& NplCefBrowserApp::CreateGetSingleton()
 
 void NplCefBrowserApp::Create(int moduleHandle, int parentHandle, std::string url)
 {
-	std::thread t(&NplCefBrowserApp::CreateThread, this, moduleHandle, parentHandle,url);
+	std::thread t(&NplCefBrowserApp::CreateCefSimple, this, moduleHandle, parentHandle,url);
 	t.detach();
 }
 bool NplCefBrowserApp::MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam)
@@ -62,10 +64,11 @@ bool NplCefBrowserApp::MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam)
 	if (message == PE_WM_NPLCEFBROWSER_CREATE_WINDOW)
 	{
 		int i = 0;
+		return true;
 	}
-	return true;
+	return false;
 }
-void NplCefBrowserApp::CreateThread(int moduleHandle, int parentHandle, std::string url)
+void NplCefBrowserApp::CreateWnd(int moduleHandle, int parentHandle, std::string url)
 {
 	if (url.empty())
 	{
@@ -107,10 +110,8 @@ void NplCefBrowserApp::CreateThread(int moduleHandle, int parentHandle, std::str
 				TranslateMessage(&msg);
 				DispatchMessageW(&msg);
 			}
-}
+		}
 	}
-	OUTPUT_LOG("web browser window thread exit\n");
-	m_dwWinThreadID = 0;
 }
 void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::string url)
 {
@@ -196,4 +197,59 @@ void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::
 	// Release objects in reverse order of creation.
 	message_loop.reset();
 	context.reset();
+}
+void NplCefBrowserApp::CreateCefSimple(int moduleHandle, int parentHandle, std::string url)
+{
+	if (url.empty())
+	{
+		url = "http://www.wikicraft.cn";
+	}
+	HWND hWnd = (HWND)parentHandle;
+	HINSTANCE instance = (HINSTANCE)moduleHandle;
+
+
+	// Enable High-DPI support on Windows 7 or newer.
+	CefEnableHighDPISupport();
+
+	void* sandbox_info = NULL;
+
+#if defined(CEF_USE_SANDBOX)
+	// Manage the life span of the sandbox information object. This is necessary
+	// for sandbox support on Windows. See cef_sandbox_win.h for complete details.
+	CefScopedSandboxInfo scoped_sandbox;
+	sandbox_info = scoped_sandbox.sandbox_info();
+#endif
+
+	// Provide CEF with command-line arguments.
+	CefMainArgs main_args(instance);
+
+	// CEF applications have multiple sub-processes (render, plugin, GPU, etc)
+	// that share the same executable. This function checks the command-line and,
+	// if this is a sub-process, executes the appropriate logic.
+	int exit_code = CefExecuteProcess(main_args, NULL, sandbox_info);
+	if (exit_code >= 0) {
+		// The sub-process has completed so return here.
+		return;
+	}
+	// Specify CEF global settings here.
+	CefSettings settings;
+
+#if !defined(CEF_USE_SANDBOX)
+	settings.no_sandbox = true;
+#endif
+
+	// SimpleApp implements application-level callbacks for the browser process.
+	// It will create the first browser instance in OnContextInitialized() after
+	// CEF has initialized.
+	CefRefPtr<SimpleApp> app(new SimpleApp(hWnd, url, false));
+
+	// Initialize CEF.
+	CefInitialize(main_args, settings, app.get(), sandbox_info);
+
+	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
+	// called.
+	CefRunMessageLoop();
+
+	// Shut down CEF.
+	CefShutdown();
 }

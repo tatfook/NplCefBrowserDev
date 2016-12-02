@@ -22,8 +22,9 @@ public:
 
 private:
 	bool MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam);
-	void CreateThread(int moduleHandle, int parentHandle, std::string url);
+	void CreateWnd(int moduleHandle, int parentHandle, std::string url);
 	void CreateCefClient(int moduleHandle, int parentHandle, std::string url);
+	void CreateCefSimple(int moduleHandle, int parentHandle, std::string url);
 	// Include the default reference counting implementation.
 	IMPLEMENT_REFCOUNTING(NplCefBrowserApp);
 };

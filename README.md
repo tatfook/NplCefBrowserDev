@@ -28,8 +28,6 @@ NCefWorkSpace
 local engine_attr = ParaEngine.GetAttributeObject();
 local parentHandle = engine_attr:GetField("AppHWND", 0);
 local moduleHandle = engine_attr:GetField("ModuleHandle", 0);
-commonlib.echo("=========moduleHandle");
-commonlib.echo(moduleHandle);
 local dll_name = "NplCefBrowser_d.dll";--debug mode
 NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, moduleHandle = moduleHandle, url = "http://www.wikicraft.cn/"}); 
 ```

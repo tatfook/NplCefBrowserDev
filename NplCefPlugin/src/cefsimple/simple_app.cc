@@ -60,6 +60,14 @@ SimpleApp::SimpleApp(CefWindowHandle parentHandle, const std::string& url, const
 {
 }
 
+void SimpleApp::OnBeforeCommandLineProcessing(const CefString& process_type, CefRefPtr<CefCommandLine> command_line)
+{
+	if (!command_line->HasSwitch("single-process")) {
+		int i = 0;
+		//command_line->AppendSwitch("single-process");
+	}
+}
+
 void SimpleApp::OnContextInitialized() {
   CEF_REQUIRE_UI_THREAD();
 
@@ -95,9 +103,9 @@ void SimpleApp::OnContextInitialized() {
 #if defined(OS_WIN)
     // On Windows we need to specify certain flags that will be passed to
     // CreateWindowEx().
-    window_info.SetAsPopup(mParentHandle, "cefsimple");
-	/*RECT rect = { 0,0,400,300 };
-	window_info.SetAsChild(mParentHandle, rect);*/
+    //window_info.SetAsPopup(mParentHandle, "cefsimple");
+	RECT rect = { 0,0,400,300 };
+	window_info.SetAsChild(mParentHandle, rect);
 #endif
 
     // Create the first browser window.

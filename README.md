@@ -8,18 +8,19 @@
 - Build NPLRumtime(Optional):Please see [NCefWorkSpace/NPLRuntime/build_win32.bat]
 - Open Developer Command Prompt for VS2015 and run NCefWorkSpace/NplCefBrowserDev/build-debug.bat or NCefWorkSpace/NplCefBrowserDev/build-release.bat  
 - Setp 1: Build libcef_dll_wrapper.lib
-- Setp 2: Build NplCefBrowser.dll
-- With debug    mode these libs will be built at NCefWorkSpace/NPLRuntime/ParaWorld: NplCefBrowser_d.dll NplCefBrowser_d.pdb libcef.dll
-- With release  mode these libs will be built at NCefWorkSpace/NPLRuntime/ParaWorld: NplCefBrowser.dll NplCefBrowser.pdb libcef.dll
+- Setp 2: Build NplCefProcess.exe
+- Setp 3: Build NplCefPlugin.dll
+- After built successfully, all binary files will locate at: NCefWorkSpace/NPLRuntime/ParaWorld/cef3
 
 ### Main Folder's structure
 ```lua
 NCefWorkSpace
         NPLRuntime
                 ParaWorld
-                        NplCefBrowser.dll
-                        NplCefBrowser.pdb
-                        libcef.dll
+                        cef3
+                                NplCefProcess.exe
+                                NplCefPlugin.dll
+                                libcef.dll
         NplCefBrowser
                 deps/cef3
 ```
@@ -28,7 +29,7 @@ NCefWorkSpace
 local engine_attr = ParaEngine.GetAttributeObject();
 local parentHandle = engine_attr:GetField("AppHWND", 0);
 local moduleHandle = engine_attr:GetField("ModuleHandle", 0);
-local dll_name = "NplCefBrowser_d.dll";--debug mode
+local dll_name = "cef3/NplCefPlugin_d.dll";--debug mode
 NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, moduleHandle = moduleHandle, url = "http://www.wikicraft.cn/"}); 
 ```
 ```lua

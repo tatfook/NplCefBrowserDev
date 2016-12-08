@@ -66,7 +66,6 @@ scoped_refptr<RootWindow> RootWindowManager::CreateRootWindow(
     const std::string& url) {
   CefBrowserSettings settings;
   MainContext::Get()->PopulateBrowserSettings(&settings);
-
   scoped_refptr<RootWindow> root_window =
       RootWindow::Create(MainContext::Get()->UseViews());
   root_window->Init(this, with_controls, with_osr, bounds, settings,
@@ -214,6 +213,16 @@ void RootWindowManager::OnRootWindowDestroyed(RootWindow* root_window) {
     // Quit the main message loop after all windows have closed.
     MainMessageLoop::Get()->Quit();
   }
+}
+
+HWND RootWindowManager::getParentHandle()
+{
+	return mParentHandle;
+}
+
+void RootWindowManager::setParentHandle(HWND wnd)
+{
+	mParentHandle = wnd;
 }
 
 }  // namespace client

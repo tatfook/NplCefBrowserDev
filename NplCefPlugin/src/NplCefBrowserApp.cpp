@@ -123,8 +123,6 @@ void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::
 	HWND hWnd = (HWND)parentHandle;
 	HINSTANCE instance = (HINSTANCE)moduleHandle;
 
-	// Enable High-DPI support on Windows 7 or newer.
-	CefEnableHighDPISupport();
 
 	CefMainArgs main_args(instance);
 
@@ -144,6 +142,7 @@ void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::
 	// Create a ClientApp of the correct type.
 	CefRefPtr<CefApp> app;
 	ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
+	process_type = ClientApp::OtherProcess;
 	if (process_type == ClientApp::BrowserProcess)
 		app = new ClientAppBrowser();
 	else if (process_type == ClientApp::RendererProcess)
@@ -151,22 +150,19 @@ void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::
 	else if (process_type == ClientApp::OtherProcess)
 		app = new ClientAppOther();
 
-	// Execute the secondary process, if any.
-	int exit_code = CefExecuteProcess(main_args, app, sandbox_info);
-	if (exit_code >= 0)
-		return;
-
 	// Create the main context object.
 	scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
 
 	CefSettings settings;
+	// Specify the path for the sub-process executable.
+	CefString(&settings.browser_subprocess_path).FromASCII("cef3/NplCefProcess_d.exe");
+
 #if !defined(CEF_USE_SANDBOX)
 	settings.no_sandbox = true;
 #endif
 
 	// Populate the settings based on command line arguments.
 	context->PopulateSettings(&settings);
-	settings.multi_threaded_message_loop = true;
 	// Create the main message loop object.
 	scoped_ptr<MainMessageLoop> message_loop;
 	if (settings.multi_threaded_message_loop)
@@ -179,7 +175,7 @@ void NplCefBrowserApp::CreateCefClient(int moduleHandle, int parentHandle, std::
 
 	// Register scheme handlers.
 	test_runner::RegisterSchemeHandlers();
-
+	context->GetRootWindowManager()->setParentHandle(hWnd);
 	// Create the first window.
 	context->GetRootWindowManager()->CreateRootWindow(
 		!command_line->HasSwitch(switches::kHideControls),  // Show controls.
@@ -207,10 +203,6 @@ void NplCefBrowserApp::CreateCefSimple(int moduleHandle, int parentHandle, std::
 	HWND hWnd = (HWND)parentHandle;
 	HINSTANCE instance = (HINSTANCE)moduleHandle;
 
-
-	// Enable High-DPI support on Windows 7 or newer.
-	//CefEnableHighDPISupport();
-
 	void* sandbox_info = NULL;
 
 #if defined(CEF_USE_SANDBOX)
@@ -222,7 +214,7 @@ void NplCefBrowserApp::CreateCefSimple(int moduleHandle, int parentHandle, std::
 
 	// Provide CEF with command-line arguments.
 	CefMainArgs main_args(instance);
-	SimpleApp* s_app = new SimpleApp(hWnd, url, false);
+	SimpleApp* s_app = new SimpleApp(hWnd, url, true);
 	// SimpleApp implements application-level callbacks for the browser process.
 	// It will create the first browser instance in OnContextInitialized() after
 	// CEF has initialized.
@@ -230,7 +222,7 @@ void NplCefBrowserApp::CreateCefSimple(int moduleHandle, int parentHandle, std::
 
 	// Specify CEF global settings here.
 	CefSettings settings;
-	settings.multi_threaded_message_loop = true;
+	//settings.multi_threaded_message_loop = true;
 	// Specify the path for the sub-process executable.
 	CefString(&settings.browser_subprocess_path).FromASCII("cef3/NplCefProcess_d.exe");
 
@@ -240,6 +232,7 @@ void NplCefBrowserApp::CreateCefSimple(int moduleHandle, int parentHandle, std::
 
 	// Initialize CEF.
 	bool v = CefInitialize(main_args, settings, app.get(), sandbox_info);
+	SetWindowLong(hWnd, GWL_STYLE, GetWindowLong(hWnd, GWL_STYLE) | WS_CLIPCHILDREN);
 	// Run the CEF message loop. This will block until CefQuitMessageLoop() is
 	// called.
 	CefRunMessageLoop();

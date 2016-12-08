@@ -30,7 +30,7 @@ class RootWindowManager : public RootWindow::Delegate {
   // If |bounds| is empty the default window size and location will be used.
   // This method can be called from anywhere to create a new top-level window.
   scoped_refptr<RootWindow> CreateRootWindow(
-      bool with_controls,
+	  bool with_controls,
       bool with_osr,
       const CefRect& bounds,
       const std::string& url);
@@ -56,12 +56,16 @@ class RootWindowManager : public RootWindow::Delegate {
   // be executed.
   void CloseAllWindows(bool force);
 
+  void setParentHandle(HWND wnd);
+  HWND getParentHandle();
  private:
+	 HWND mParentHandle;
+
   // Allow deletion via scoped_ptr only.
   friend struct base::DefaultDeleter<RootWindowManager>;
 
   ~RootWindowManager();
-
+  
   void OnRootWindowCreated(scoped_refptr<RootWindow> root_window);
 
   // RootWindow::Delegate methods.

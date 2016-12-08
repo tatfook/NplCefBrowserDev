@@ -36,6 +36,19 @@ SimpleHandler* SimpleHandler::GetInstance() {
   return g_instance;
 }
 
+
+bool SimpleHandler::GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect)
+{
+	rect = CefRect(0, 0, 400, 300);
+	return true;
+}
+
+
+void SimpleHandler::OnPaint(CefRefPtr<CefBrowser> browser, PaintElementType type, const RectList& dirtyRects, const void* buffer, int width, int height)
+{
+
+}
+
 void SimpleHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
                                   const CefString& title) {
   CEF_REQUIRE_UI_THREAD();

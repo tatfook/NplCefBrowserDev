@@ -17,7 +17,7 @@
 #include "cefclient/browser/util_win.h"
 #include "cefclient/browser/window_test_runner_win.h"
 #include "cefclient/common/client_switches.h"
-
+#include "cefclient/browser/root_window_manager.h"
 #include "StringHelper.h"
 #define MAX_URL_LENGTH  255
 #define BUTTON_WIDTH    72
@@ -307,13 +307,14 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
     width = window_rect.right - window_rect.left;
     height = window_rect.bottom - window_rect.top;
   }
-
+  RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
+  HWND parentHandle = m->getParentHandle();
   // Create the main window initially hidden.
   hwnd_ = CreateWindow(NplCefBroser::StringHelper::WideCharToMultiByte(window_class.c_str(), CP_UTF8),
 					   NplCefBroser::StringHelper::WideCharToMultiByte(window_title.c_str(), CP_UTF8),
                        dwStyle,
                        x, y, width, height,
-                       NULL, NULL, hInstance, NULL);
+	  parentHandle, NULL, hInstance, NULL);
   CHECK(hwnd_);
 
   // Associate |this| with the main window.

@@ -13,6 +13,7 @@
 class SimpleHandler : public CefClient,
                       public CefDisplayHandler,
                       public CefLifeSpanHandler,
+					  public CefRenderHandler,
                       public CefLoadHandler {
  public:
   explicit SimpleHandler(bool use_views);
@@ -20,6 +21,8 @@ class SimpleHandler : public CefClient,
 
   // Provide access to the single global instance of this object.
   static SimpleHandler* GetInstance();
+  virtual bool GetViewRect(CefRefPtr<CefBrowser> browser, CefRect& rect) OVERRIDE;
+  virtual void OnPaint(CefRefPtr<CefBrowser> browser, PaintElementType type, const RectList& dirtyRects, const void* buffer, int width, int height) OVERRIDE;
 
   // CefClient methods:
   virtual CefRefPtr<CefDisplayHandler> GetDisplayHandler() OVERRIDE {

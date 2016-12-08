@@ -71,12 +71,5 @@ set_target_properties(NplCefProcess PROPERTIES OUTPUT_NAME "NplCefProcess")
 set_target_properties(NplCefProcess PROPERTIES DEBUG_OUTPUT_NAME "NplCefProcess_d")
 target_link_libraries(NplCefProcess libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}" glu32.lib opengl32.lib)
 
-file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")
-ADD_CUSTOM_COMMAND(
-   TARGET NplCefProcess
-   POST_BUILD
-   COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}
-   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_BINARY_FILES} ${OUTPUT_BIN_DIR}
-)
 
 

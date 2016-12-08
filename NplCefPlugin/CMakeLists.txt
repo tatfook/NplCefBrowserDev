@@ -105,9 +105,18 @@ add_library(NplCefPlugin SHARED ${NplCefPlugin_Source_files})
 target_link_libraries(NplCefPlugin libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}" glu32.lib opengl32.lib)
 
 file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")
+list(APPEND CEF3_ALL_FILES ${CEF3_ALL_BINARY_FILES})
+
+file(GLOB  CEF3_ALL_RESOURCES_FILES "${CEF3_DIR}/Resources/*.*" )
+list(APPEND CEF3_ALL_FILES ${CEF3_ALL_RESOURCES_FILES})
+
+file(GLOB  CEF3_ALL_RESOURCES_LOCALES_FILES "${CEF3_DIR}/Resources/locales/*.*" )
+
 ADD_CUSTOM_COMMAND(
    TARGET NplCefPlugin
    POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}
-   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_BINARY_FILES} ${OUTPUT_BIN_DIR}
+   COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}/locales
+   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_FILES} ${OUTPUT_BIN_DIR}
+   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_RESOURCES_LOCALES_FILES} ${OUTPUT_BIN_DIR}/locales
 )

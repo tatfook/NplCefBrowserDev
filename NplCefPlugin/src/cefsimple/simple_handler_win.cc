@@ -12,5 +12,5 @@
 void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
                                         const CefString& title) {
   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-  SetWindowText(hwnd, NplCefBroser::StringHelper::WideCharToMultiByte(::wstring(title).c_str(),CP_UTF8));
+  SetWindowText(hwnd, std::string(title).c_str());
 }

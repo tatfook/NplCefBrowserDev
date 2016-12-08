@@ -11,7 +11,7 @@
 int main(int argc, char* argv[]) {
 
 	// Enable High-DPI support on Windows 7 or newer.
-	CefEnableHighDPISupport();
+	//CefEnableHighDPISupport();
 
 	void* sandbox_info = NULL;
 

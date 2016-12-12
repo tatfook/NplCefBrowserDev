@@ -8,7 +8,6 @@
 #include <windows.h>
 
 #include "include/cef_browser.h"
-#include "StringHelper.h"
 void SimpleHandler::PlatformTitleChange(CefRefPtr<CefBrowser> browser,
                                         const CefString& title) {
   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();

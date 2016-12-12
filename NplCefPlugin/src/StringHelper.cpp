@@ -1,5 +1,5 @@
 #include "StringHelper.h"
-namespace NplCefBroser
+namespace NplCefBrowser
 {
 	const WCHAR* StringHelper::MultiByteToWideChar(const char* name, unsigned int nCodePage /*= 0*/)
 	{

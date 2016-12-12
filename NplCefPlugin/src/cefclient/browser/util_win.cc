@@ -5,7 +5,6 @@
 #include "cefclient/browser/util_win.h"
 
 #include "include/base/cef_logging.h"
-#include "StringHelper.h"
 namespace client {
 
 void SetUserDataPtr(HWND hWnd, void* ptr) {
@@ -25,11 +24,11 @@ WNDPROC SetWndProcPtr(HWND hWnd, WNDPROC wndProc) {
   return old;
 }
 
-std::wstring GetResourceString(UINT id) {
+std::string GetResourceString(UINT id) {
   #define MAX_LOADSTRING 100
-  TCHAR buff[MAX_LOADSTRING] = {0};
+  CHAR buff[MAX_LOADSTRING] = {0};
   LoadString(::GetModuleHandle(NULL), id, buff, MAX_LOADSTRING);
-  return NplCefBroser::StringHelper::MultiByteToWideChar(buff, CP_UTF8);
+  return buff;
 }
 
 int GetCefMouseModifiers(WPARAM wparam) {

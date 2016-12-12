@@ -18,7 +18,6 @@
 #include "cefclient/browser/window_test_runner_win.h"
 #include "cefclient/common/client_switches.h"
 #include "cefclient/browser/root_window_manager.h"
-#include "StringHelper.h"
 #define MAX_URL_LENGTH  255
 #define BUTTON_WIDTH    72
 #define URLBAR_HEIGHT   24
@@ -273,8 +272,8 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   HINSTANCE hInstance = GetModuleHandle(NULL);
 
   // Load strings from the resource file.
-  const std::wstring& window_title = GetResourceString(IDS_APP_TITLE);
-  const std::wstring& window_class = GetResourceString(IDC_CEFCLIENT);
+  const std::string& window_title = "title";
+  const std::string& window_class = "cefclient_main_window";
 
   const cef_color_t background_color = MainContext::Get()->GetBackgroundColor();
   const HBRUSH background_brush = CreateSolidBrush(
@@ -289,7 +288,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   find_message_id_ = RegisterWindowMessage(FINDMSGSTRING);
   CHECK(find_message_id_);
 
-  const DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN;
+  const DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CLIPCHILDREN;
 
   int x, y, width, height;
   if (::IsRectEmpty(&start_rect_)) {
@@ -310,12 +309,14 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
   HWND parentHandle = m->getParentHandle();
   // Create the main window initially hidden.
-  hwnd_ = CreateWindow(NplCefBroser::StringHelper::WideCharToMultiByte(window_class.c_str(), CP_UTF8),
-					   NplCefBroser::StringHelper::WideCharToMultiByte(window_title.c_str(), CP_UTF8),
+  hwnd_ = CreateWindow(window_class.c_str(),
+					   window_title.c_str(),
                        dwStyle,
                        x, y, width, height,
 	  parentHandle, NULL, hInstance, NULL);
   CHECK(hwnd_);
+  //SetWindowLong(parentHandle, GWL_STYLE, GetWindowLong(parentHandle, GWL_STYLE) | WS_CLIPCHILDREN);
+  //ShowWindow(hwnd_, SW_SHOW);
 
   // Associate |this| with the main window.
   SetUserDataPtr(hwnd_, this);
@@ -431,7 +432,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
 
 // static
 void RootWindowWin::RegisterRootClass(HINSTANCE hInstance,
-                                      const std::wstring& window_class,
+                                      const std::string& window_class,
                                       HBRUSH background_brush) {
   // Only register the class one time.
   static bool class_registered = false;
@@ -452,7 +453,7 @@ void RootWindowWin::RegisterRootClass(HINSTANCE hInstance,
   wcex.hCursor       = LoadCursor(NULL, IDC_ARROW);
   wcex.hbrBackground = background_brush;
   wcex.lpszMenuName  = MAKEINTRESOURCE(IDC_CEFCLIENT);
-  wcex.lpszClassName = NplCefBroser::StringHelper::WideCharToMultiByte(window_class.c_str(), CP_UTF8);
+  wcex.lpszClassName = window_class.c_str();
   wcex.hIconSm       = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
   RegisterClassEx(&wcex);
@@ -473,7 +474,7 @@ LRESULT CALLBACK RootWindowWin::EditWndProc(HWND hWnd, UINT message,
         // When the user hits the enter key load the URL.
         CefRefPtr<CefBrowser> browser = self->GetBrowser();
         if (browser) {
-          wchar_t strPtr[MAX_URL_LENGTH+1] = {0};
+          char strPtr[MAX_URL_LENGTH+1] = {0};
           *((LPWORD)strPtr) = MAX_URL_LENGTH;
           LRESULT strLen = SendMessage(hWnd, EM_GETLINE, 0, (LPARAM)strPtr);
           if (strLen > 0) {
@@ -734,7 +735,7 @@ void RootWindowWin::OnFind() {
   ZeroMemory(&find_state_, sizeof(find_state_));
   find_state_.lStructSize = sizeof(find_state_);
   find_state_.hwndOwner = hwnd_;
-  std::string str = NplCefBroser::StringHelper::WideCharToMultiByte(find_buff_, CP_UTF8);
+  std::string str = find_buff_;
   char *cstr = new char[str.length() + 1];
   strcpy(cstr, str.c_str());
   delete[] cstr;
@@ -766,7 +767,7 @@ void RootWindowWin::OnFindEvent() {
   } else if ((find_state_.Flags & FR_FINDNEXT) && browser)  {
     // Search for the requested string.
     bool match_case = ((find_state_.Flags & FR_MATCHCASE) ? true : false);
-    const std::wstring& find_what = find_buff_;
+    const std::string& find_what = find_buff_;
     if (match_case != find_match_case_last_ || find_what != find_what_last_) {
       // The search string has changed, so reset the search results.
       if (!find_what.empty()) {

@@ -57,7 +57,7 @@ class RootWindowWin : public RootWindow,
 
   // Register the root window class.
   static void RegisterRootClass(HINSTANCE hInstance,
-                                const std::wstring& window_class,
+                                const std::string& window_class,
                                 HBRUSH background_brush);
 
   // Window procedure for the edit field.
@@ -135,8 +135,8 @@ class RootWindowWin : public RootWindow,
 
   // Find dialog state.
   FINDREPLACE find_state_;
-  WCHAR find_buff_[80];
-  std::wstring find_what_last_;
+  CHAR find_buff_[80];
+  std::string find_what_last_;
   bool find_next_;
   bool find_match_case_last_;
 

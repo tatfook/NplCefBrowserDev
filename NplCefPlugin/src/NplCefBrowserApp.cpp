@@ -57,7 +57,7 @@ NplCefBrowserApp& NplCefBrowserApp::CreateGetSingleton()
 
 void NplCefBrowserApp::Create(int moduleHandle, int parentHandle, std::string url)
 {
-	std::thread t(&NplCefBrowserApp::CreateCefSimple, this, moduleHandle, parentHandle,url);
+	std::thread t(&NplCefBrowserApp::CreateCefClient, this, moduleHandle, parentHandle,url);
 	t.detach();
 }
 bool NplCefBrowserApp::MsgProcCustom(UINT message, WPARAM wParam, LPARAM lParam)

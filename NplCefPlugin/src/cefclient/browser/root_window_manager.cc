@@ -215,14 +215,24 @@ void RootWindowManager::OnRootWindowDestroyed(RootWindow* root_window) {
   }
 }
 
-HWND RootWindowManager::getParentHandle()
+HWND RootWindowManager::GetParentHandle()
 {
 	return mParentHandle;
 }
 
-void RootWindowManager::setParentHandle(HWND wnd)
+void RootWindowManager::SetParentHandle(HWND wnd)
 {
 	mParentHandle = wnd;
+}
+
+void RootWindowManager::SetShowTitleBar(bool v)
+{
+	mShowTitleBar = v;
+}
+
+bool RootWindowManager::ShowTitleBar()
+{
+	return mShowTitleBar;
 }
 
 }  // namespace client

@@ -56,10 +56,13 @@ class RootWindowManager : public RootWindow::Delegate {
   // be executed.
   void CloseAllWindows(bool force);
 
-  void setParentHandle(HWND wnd);
-  HWND getParentHandle();
- private:
+  void SetParentHandle(HWND wnd);
+  HWND GetParentHandle();
+  void SetShowTitleBar(bool v);
+  bool ShowTitleBar();
+private:
 	 HWND mParentHandle;
+	 bool mShowTitleBar;
 
   // Allow deletion via scoped_ptr only.
   friend struct base::DefaultDeleter<RootWindowManager>;

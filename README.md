@@ -26,10 +26,15 @@ NCefWorkSpace
 ```
 ```lua
 --test code
-local engine_attr = ParaEngine.GetAttributeObject();
-local parentHandle = engine_attr:GetField("AppHWND", 0);
 local dll_name = "cef3/NplCefPlugin_d.dll";--debug mode
-NPL.activate(dll_name,{cmd = "create", parentHandle = parentHandle, url = "http://www.wikicraft.cn/"}); 
+NPL.activate(dll_name,{ cmd = "createOrOpen",
+                        subProcessName = "cef3/NplCefProcess_d.exe",
+                        parentHandle = ParaEngine.GetAttributeObject():GetField("AppHWND", 0),
+                        url = "http://www.wikicraft.cn/",
+                        showTitleBar = true,
+                        x = 0, y = 0, width = 400, height = 300, 
+}); 
+
 ```
 ```lua
 deps/cef3/include/cef_v8.h

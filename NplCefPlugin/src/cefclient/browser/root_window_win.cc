@@ -272,7 +272,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   HINSTANCE hInstance = GetModuleHandle(NULL);
 
   // Load strings from the resource file.
-  const std::string& window_title = "title";
+  const std::string& window_title = "";
   const std::string& window_class = "cefclient_main_window";
 
   const cef_color_t background_color = MainContext::Get()->GetBackgroundColor();
@@ -288,8 +288,17 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   find_message_id_ = RegisterWindowMessage(FINDMSGSTRING);
   CHECK(find_message_id_);
 
-  const DWORD dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE | WS_CLIPCHILDREN;
+  RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
 
+  DWORD dwStyle;
+  if (m->ShowTitleBar())
+  {
+	  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
+  }
+  else
+  {
+	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN;
+  }
   int x, y, width, height;
   if (::IsRectEmpty(&start_rect_)) {
     // Use the default window position/size.
@@ -306,8 +315,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
     width = window_rect.right - window_rect.left;
     height = window_rect.bottom - window_rect.top;
   }
-  RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
-  HWND parentHandle = m->getParentHandle();
+  HWND parentHandle = m->GetParentHandle();
   // Create the main window initially hidden.
   hwnd_ = CreateWindow(window_class.c_str(),
 					   window_title.c_str(),
@@ -315,9 +323,10 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
                        x, y, width, height,
 	  parentHandle, NULL, hInstance, NULL);
   CHECK(hwnd_);
-  //SetWindowLong(parentHandle, GWL_STYLE, GetWindowLong(parentHandle, GWL_STYLE) | WS_CLIPCHILDREN);
-  //ShowWindow(hwnd_, SW_SHOW);
-
+  if (!m->ShowTitleBar())
+  {
+	  SetWindowLong(parentHandle, GWL_STYLE, GetWindowLong(parentHandle, GWL_STYLE) | WS_CLIPCHILDREN);
+  }
   // Associate |this| with the main window.
   SetUserDataPtr(hwnd_, this);
 

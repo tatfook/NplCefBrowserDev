@@ -40,11 +40,6 @@ file (GLOB resources_win_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/win
 SOURCE_GROUP("src\\cefclient\\resources\\win" FILES ${resources_win_files}) 
 list(APPEND NplCefPlugin_Source_files ${resources_win_files})
 
-# cefsimple
-file (GLOB cefsimple_files ${PROJECT_SOURCE_DIR}/src/cefsimple/*.*)
-SOURCE_GROUP("src\\cefsimple" FILES ${cefsimple_files}) 
-list(APPEND NplCefPlugin_Source_files ${cefsimple_files})
-
 
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/src")

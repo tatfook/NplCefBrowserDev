@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include <string>
+#include <thread>
 #include <sstream>
 #include <fstream>
 #include "include/cef_browser.h"
@@ -12,7 +13,8 @@
 
 #include "Core/INPLRuntimeState.h"
 #include "Core/NPLInterface.hpp"
-#include "NplCefBrowserApp.h"
+#include "NplCefBrowser.h"
+#include "NplCefBrowserTask.h"
 using namespace ParaEngine;
 
 
@@ -155,13 +157,29 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		NPLInterface::NPLObjectProxy tabMsg = NPLInterface::NPLHelper::MsgStringToNPLTable(sMsg);
 		const std::string& sCmd = tabMsg["cmd"];
 
-		if (sCmd == "create")
+		const std::string& subProcessName = tabMsg["subProcessName"];
+		double parentHandle = tabMsg["parentHandle"];
+		const std::string& url = tabMsg["url"];
+		bool showTitleBar = tabMsg["showTitleBar"];
+		double x = tabMsg["x"];
+		double y = tabMsg["y"];
+		double width = tabMsg["width"];
+		double height = tabMsg["height"];
+
+		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+
+		if (sCmd == "createOrOpen")
 		{
-			NplCefBrowserApp& browser_app = NplCefBrowserApp::CreateGetSingleton();
-			double parentHandle = tabMsg["parentHandle"];
-			double moduleHandle = tabMsg["moduleHandle"];
-			const std::string& url = tabMsg["url"];
-			browser_app.Create((int)moduleHandle, (int)parentHandle, url);
+			if (!browser.IsStart())
+			{
+				std::thread t(&NplCefBrowser::DoStart, &browser, subProcessName, parentHandle, url, showTitleBar, x, y, width, height);
+				t.detach();
+			}
+			else
+			{
+				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, url, x, y, width, height);
+				browser.PostTask(task);
+			}
 		}
 	}
 }

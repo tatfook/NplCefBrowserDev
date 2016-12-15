@@ -49,7 +49,7 @@ SET(CMAKE_DEBUG_POSTFIX "_d")
 
 link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
 
- # Libraries required by cef_sandbox.lib.
+# Libraries required by cef_sandbox.lib.
     set(CEF_SANDBOX_STANDARD_LIBS
       dbghelp.lib
       psapi.lib
@@ -69,7 +69,6 @@ link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
 add_executable(NplCefProcess ${NplCefProcess_Source_files})
 set_target_properties(NplCefProcess PROPERTIES OUTPUT_NAME "NplCefProcess")
 set_target_properties(NplCefProcess PROPERTIES DEBUG_OUTPUT_NAME "NplCefProcess_d")
-target_link_libraries(NplCefProcess libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}" glu32.lib opengl32.lib)
-
+target_link_libraries(NplCefProcess libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
 
 

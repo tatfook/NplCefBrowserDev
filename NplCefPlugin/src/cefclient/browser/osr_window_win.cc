@@ -1,7 +1,7 @@
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
-
+#if defined OSR_RENDER
 #include "cefclient/browser/osr_window_win.h"
 
 #include <windowsx.h>
@@ -952,3 +952,4 @@ OsrWindowWin::OnDrop(CefMouseEvent ev,
 #endif  // defined(CEF_USE_ATL)
 
 }  // namespace client
+#endif

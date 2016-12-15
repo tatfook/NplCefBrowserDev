@@ -1,7 +1,7 @@
 // Copyright (c) 2012 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license
 // that can be found in the LICENSE file.
-
+#if defined OSR_RENDER
 #include "cefclient/browser/osr_renderer.h"
 
 #if defined(OS_WIN)
@@ -346,3 +346,4 @@ void OsrRenderer::IncrementSpin(float spinDX, float spinDY) {
 }
 
 }  // namespace client
+#endif

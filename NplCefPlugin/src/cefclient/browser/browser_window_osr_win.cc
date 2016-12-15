@@ -1,6 +1,7 @@
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
+#if defined OSR_RENDER
 
 #include "cefclient/browser/browser_window_osr_win.h"
 
@@ -113,3 +114,4 @@ void BrowserWindowOsrWin::OnOsrNativeWindowCreated(HWND hwnd) {
 }
 
 }  // namespace client
+#endif

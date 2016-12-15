@@ -1,20 +1,12 @@
-#include "stdafx.h"
 
 #include <string>
 #include <thread>
 #include <sstream>
 #include <fstream>
-#include "include/cef_browser.h"
-#include "include/cef_command_line.h"
-#include "include/cef_request_context.h"
-#include "include/views/cef_browser_view.h"
-#include "include/views/cef_window.h"
-#include "include/wrapper/cef_helpers.h"
 
+#include "PluginAPI.h"
 #include "Core/INPLRuntimeState.h"
 #include "Core/NPLInterface.hpp"
-//#include "NplCefBrowser.h"
-//#include "NplCefBrowserTask.h"
 using namespace ParaEngine;
 
 
@@ -145,11 +137,6 @@ void __attribute__((constructor)) DllMain()
 #endif
 }
 #pragma endregion PE_DLL 
-void DoStart(std::string subProcessName, int parentHandle, std::string url, bool showTitleBar, int x, int y, int width, int height)
-{
-	/*NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
-	browser.DoStart(subProcessName, parentHandle, url, showTitleBar, x, y, width, height);*/
-}
 CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 {
 	if (nType == ParaEngine::PluginActType_STATE)
@@ -169,24 +156,6 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		double y = tabMsg["y"];
 		double width = tabMsg["width"];
 		double height = tabMsg["height"];
-
-		//OUTPUT_LOG("NplCefBrowser activate:%s", sCmd.c_str());
-
-		/*NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
-
-		if (sCmd == "createOrOpen")
-		{
-			if (!browser.IsStart())
-			{
-				std::thread t(&DoStart, subProcessName, parentHandle, url, showTitleBar, x, y, width, height);
-				t.detach();
-			}
-			else
-			{
-				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, url, x, y, width, height);
-				browser.PostTask(task);
-			}
-		}*/
 	}
 }
 

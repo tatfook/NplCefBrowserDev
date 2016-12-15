@@ -58,8 +58,8 @@ class RootWindowManager : public RootWindow::Delegate {
 
   void SetParentHandle(HWND wnd);
   HWND GetParentHandle();
-  void SetShowTitleBar(bool v);
-  bool ShowTitleBar();
+  //void SetShowTitleBar(bool v);
+  //bool ShowTitleBar();
 private:
 	 HWND mParentHandle;
 	 bool mShowTitleBar;

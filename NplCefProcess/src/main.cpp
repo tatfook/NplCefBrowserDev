@@ -3,11 +3,6 @@
 #include "include/cef_app.h"
 #include "include/cef_sandbox_win.h"
 
-#if defined(CEF_USE_SANDBOX)
-// The cef_sandbox.lib static library is currently built with VS2013. It may not
-// link successfully with other VS versions.
-#pragma comment(lib, "cef_sandbox.lib")
-#endif
 int main(int argc, char* argv[]) {
 
 	// Enable High-DPI support on Windows 7 or newer.

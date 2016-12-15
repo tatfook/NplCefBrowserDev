@@ -257,9 +257,12 @@ ClientWindowHandle RootWindowWin::GetWindowHandle() const {
 
 void RootWindowWin::CreateBrowserWindow(const std::string& startup_url) {
   if (with_osr_) {
+#if defined OSR_RENDER
+
     OsrRenderer::Settings settings;
     MainContext::Get()->PopulateOsrSettings(&settings);
     browser_window_.reset(new BrowserWindowOsrWin(this, startup_url, settings));
+#endif
   } else {
     browser_window_.reset(new BrowserWindowStdWin(this, startup_url));
   }
@@ -289,16 +292,17 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   CHECK(find_message_id_);
 
   RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
-
   DWORD dwStyle;
-  if (m->ShowTitleBar())
+  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
+
+  /*if (m->ShowTitleBar())
   {
 	  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
   }
   else
   {
 	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN;
-  }
+  }*/
   int x, y, width, height;
   if (::IsRectEmpty(&start_rect_)) {
     // Use the default window position/size.
@@ -323,10 +327,10 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
                        x, y, width, height,
 	  parentHandle, NULL, hInstance, NULL);
   CHECK(hwnd_);
-  if (!m->ShowTitleBar())
+ /* if (!m->ShowTitleBar())
   {
 	  SetWindowLong(parentHandle, GWL_STYLE, GetWindowLong(parentHandle, GWL_STYLE) | WS_CLIPCHILDREN);
-  }
+  }*/
   // Associate |this| with the main window.
   SetUserDataPtr(hwnd_, this);
 

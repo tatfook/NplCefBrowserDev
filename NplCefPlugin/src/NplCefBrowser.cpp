@@ -103,7 +103,7 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	// Register scheme handlers.
 	test_runner::RegisterSchemeHandlers();
 	context->GetRootWindowManager()->SetParentHandle(hWnd);
-	context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
+	//context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
 	// Create the first window.
 	if (!url.empty())
 	{

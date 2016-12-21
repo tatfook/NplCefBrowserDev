@@ -5,13 +5,41 @@
 cmake_minimum_required(VERSION 2.6)
 project (HelloWorldPlugin)
 
+add_definitions(-D_INT32)
+add_definitions(-D_UINT32)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-DNOMINMAX)
+add_definitions(-DCEF_USE_SANDBOX)
 
 SET(NplCefPlugin_Source_files "")
 file (GLOB src_files ${PROJECT_SOURCE_DIR}/*.*)
 SOURCE_GROUP("src" FILES ${src_files}) 
 list(APPEND NplCefPlugin_Source_files ${src_files})
 
+SET(NplCefPlugin_Source_files "")
+file (GLOB src_files ${PROJECT_SOURCE_DIR}/src/*.*)
+SOURCE_GROUP("src" FILES ${src_files}) 
+list(APPEND NplCefPlugin_Source_files ${src_files})
 
+# cefsimple
+# file (GLOB common_files ${PROJECT_SOURCE_DIR}/src/cefsimple/*.h ${PROJECT_SOURCE_DIR}/src/cefsimple/*.cc)
+# SOURCE_GROUP("src\\cefsimple" FILES ${common_files}) 
+# list(APPEND NplCefPlugin_Source_files ${common_files})
+
+# # cefclient/common
+# file (GLOB common_files ${PROJECT_SOURCE_DIR}/src/cefclient/common/*.*)
+# SOURCE_GROUP("src\\cefclient\\common" FILES ${common_files}) 
+# list(APPEND NplCefPlugin_Source_files ${common_files})
+
+# # cefclient/browser
+# file (GLOB browser_files ${PROJECT_SOURCE_DIR}/src/cefclient/browser/*.*)
+# SOURCE_GROUP("src\\cefclient\\browser" FILES ${browser_files}) 
+# list(APPEND NplCefPlugin_Source_files ${browser_files})
+
+# # cefclient/renderer
+# file (GLOB renderer_files ${PROJECT_SOURCE_DIR}/src/cefclient/renderer/*.*)
+# SOURCE_GROUP("src\\cefclient\\renderer" FILES ${renderer_files}) 
+# list(APPEND NplCefPlugin_Source_files ${renderer_files})
 
 include_directories("${PROJECT_SOURCE_DIR}")
 include_directories("${PROJECT_SOURCE_DIR}/src")
@@ -21,6 +49,7 @@ include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/math")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/util")
 include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/IO")
+include_directories("${CEF3_DIR}")
 include_directories("${BoostRoot_DIR}")
 
 IF(MSVC)
@@ -54,10 +83,15 @@ link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
 
 # add the executable
 add_library(HelloWorldPlugin SHARED ${NplCefPlugin_Source_files})
-target_link_libraries(HelloWorldPlugin libcef.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
+set_target_properties(HelloWorldPlugin PROPERTIES LINK_FLAGS "/ignore:4201")
 
-file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")
+target_link_libraries(HelloWorldPlugin libcef libcef_dll_wrapper)
+
+
+
+file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/HelloWorldPlugin.dll"  "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/HelloWorldPlugin_d.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")
 list(APPEND CEF3_ALL_FILES ${CEF3_ALL_BINARY_FILES})
+
 
 file(GLOB  CEF3_ALL_RESOURCES_FILES "${CEF3_DIR}/Resources/*.*" )
 list(APPEND CEF3_ALL_FILES ${CEF3_ALL_RESOURCES_FILES})
@@ -68,7 +102,7 @@ ADD_CUSTOM_COMMAND(
    TARGET HelloWorldPlugin
    POST_BUILD
    COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}
-   #COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}/locales
+   COMMAND ${CMAKE_COMMAND} -E make_directory ${OUTPUT_BIN_DIR}/locales
    COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_FILES} ${OUTPUT_BIN_DIR}
-   #COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_RESOURCES_LOCALES_FILES} ${OUTPUT_BIN_DIR}/locales
+   COMMAND ${CMAKE_COMMAND} -E copy ${CEF3_ALL_RESOURCES_LOCALES_FILES} ${OUTPUT_BIN_DIR}/locales
 )

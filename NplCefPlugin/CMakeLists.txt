@@ -9,7 +9,7 @@ add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DNOMINMAX)
-#add_definitions(-DCEF_USE_SANDBOX)
+add_definitions(-DCEF_USE_SANDBOX)
 
 SET(NplCefPlugin_Source_files "")
 file (GLOB src_files ${PROJECT_SOURCE_DIR}/src/*.*)
@@ -30,15 +30,15 @@ file (GLOB renderer_files ${PROJECT_SOURCE_DIR}/src/cefclient/renderer/*.*)
 SOURCE_GROUP("src\\cefclient\\renderer" FILES ${renderer_files}) 
 list(APPEND NplCefPlugin_Source_files ${renderer_files})
 
-# cefclient/resources
-file (GLOB resources_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/*.*)
-SOURCE_GROUP("src\\cefclient\\resources" FILES ${resources_files}) 
-list(APPEND NplCefPlugin_Source_files ${resources_files})
+# # cefclient/resources
+# file (GLOB resources_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/*.*)
+# SOURCE_GROUP("src\\cefclient\\resources" FILES ${resources_files}) 
+# list(APPEND NplCefPlugin_Source_files ${resources_files})
 
-# cefclient/resources/win
-file (GLOB resources_win_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/win/*.*)
-SOURCE_GROUP("src\\cefclient\\resources\\win" FILES ${resources_win_files}) 
-list(APPEND NplCefPlugin_Source_files ${resources_win_files})
+# # cefclient/resources/win
+# file (GLOB resources_win_files ${PROJECT_SOURCE_DIR}/src/cefclient/resources/win/*.*)
+# SOURCE_GROUP("src\\cefclient\\resources\\win" FILES ${resources_win_files}) 
+# list(APPEND NplCefPlugin_Source_files ${resources_win_files})
 
 
 include_directories("${PROJECT_SOURCE_DIR}")
@@ -80,12 +80,12 @@ SET(CMAKE_DEBUG_POSTFIX "_d")
 link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
 
  # Libraries required by cef_sandbox.lib.
-    # set(CEF_SANDBOX_STANDARD_LIBS
-    #   dbghelp.lib
-    #   psapi.lib
-    #   version.lib
-    #   winmm.lib
-    #   )
+    set(CEF_SANDBOX_STANDARD_LIBS
+      dbghelp.lib
+      psapi.lib
+      version.lib
+      winmm.lib
+      )
 
  # Standard libraries.
   set(CEF_STANDARD_LIBS
@@ -96,8 +96,7 @@ link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
     )
 
 add_library(NplCefPlugin SHARED ${NplCefPlugin_Source_files})
-#target_link_libraries(NplCefPlugin libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
-target_link_libraries(NplCefPlugin libcef.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
+target_link_libraries(NplCefPlugin libcef.lib cef_sandbox.lib libcef_dll_wrapper.lib "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
 
 file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")
 list(APPEND CEF3_ALL_FILES ${CEF3_ALL_BINARY_FILES})

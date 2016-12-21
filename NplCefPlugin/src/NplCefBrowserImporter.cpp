@@ -53,7 +53,7 @@ GetClassDescMethod Plugins[] =
 	NplCefBrowser_GetClassDesc,
 };
 
-#define MCImporter_CLASS_ID Class_ID(0x2b305a29, 0x47a409ce)
+#define NplCefBrowser_CLASS_ID Class_ID(0x3b305a29, 0x47a409ce)
 
 class NplCefBrowserDesc :public ClassDescriptor
 {
@@ -75,7 +75,7 @@ public:
 
 	Class_ID ClassID()
 	{
-		return MCImporter_CLASS_ID;
+		return NplCefBrowser_CLASS_ID;
 	}
 
 	const char* Category()

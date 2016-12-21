@@ -1,15 +1,11 @@
-
-#include <string>
-#include <thread>
-#include <sstream>
-#include <fstream>
-
+//#pragma warning( disable : 4201)
 #include "PluginAPI.h"
 #include "Core/INPLRuntimeState.h"
 #include "Core/NPLInterface.hpp"
+
 using namespace ParaEngine;
 
-
+#include "include/cef_app.h"
 
 #pragma region PE_DLL 
 
@@ -141,21 +137,9 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 {
 	if (nType == ParaEngine::PluginActType_STATE)
 	{
-		NPL::INPLRuntimeState* pState = (NPL::INPLRuntimeState*)pVoid;
-		const char* sMsg = pState->GetCurrentMsg();
-		int nMsgLength = pState->GetCurrentMsgLength();
-
-		NPLInterface::NPLObjectProxy tabMsg = NPLInterface::NPLHelper::MsgStringToNPLTable(sMsg);
-		const std::string& sCmd = tabMsg["cmd"];
-
-		const std::string& subProcessName = tabMsg["subProcessName"];
-		double parentHandle = tabMsg["parentHandle"];
-		const std::string& url = tabMsg["url"];
-		bool showTitleBar = tabMsg["showTitleBar"];
-		double x = tabMsg["x"];
-		double y = tabMsg["y"];
-		double width = tabMsg["width"];
-		double height = tabMsg["height"];
+		OUTPUT_LOG("================dll activated\n");
+		CefMainArgs main_args;
+		CefExecuteProcess(main_args, NULL, NULL);
 	}
 }
 

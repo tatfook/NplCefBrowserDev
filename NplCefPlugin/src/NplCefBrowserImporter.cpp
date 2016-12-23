@@ -13,8 +13,8 @@
 
 #include "Core/INPLRuntimeState.h"
 #include "Core/NPLInterface.hpp"
-//#include "NplCefBrowser.h"
-//#include "NplCefBrowserTask.h"
+#include "NplCefBrowser.h"
+#include "NplCefBrowserTask.h"
 using namespace ParaEngine;
 
 
@@ -103,7 +103,7 @@ ClassDescriptor* NplCefBrowser_GetClassDesc()
 
 CORE_EXPORT_DECL const char* LibDescription()
 {
-	return "ParaEngine MCImporter Ver 1.0.0";
+	return "ParaEngine NplCefBrowserImporter Ver 1.0.0";
 }
 
 CORE_EXPORT_DECL unsigned long LibVersion()
@@ -145,11 +145,7 @@ void __attribute__((constructor)) DllMain()
 #endif
 }
 #pragma endregion PE_DLL 
-void DoStart(std::string subProcessName, int parentHandle, std::string url, bool showTitleBar, int x, int y, int width, int height)
-{
-	/*NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
-	browser.DoStart(subProcessName, parentHandle, url, showTitleBar, x, y, width, height);*/
-}
+
 CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 {
 	if (nType == ParaEngine::PluginActType_STATE)
@@ -165,20 +161,21 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		double parentHandle = tabMsg["parentHandle"];
 		const std::string& url = tabMsg["url"];
 		bool showTitleBar = tabMsg["showTitleBar"];
+		bool withControl = tabMsg["withControl"];
 		double x = tabMsg["x"];
 		double y = tabMsg["y"];
 		double width = tabMsg["width"];
 		double height = tabMsg["height"];
 
-		//OUTPUT_LOG("NplCefBrowser activate:%s", sCmd.c_str());
+		OUTPUT_LOG("NplCefBrowser activate:%s", sCmd.c_str());
 
-		/*NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
 
 		if (sCmd == "createOrOpen")
 		{
 			if (!browser.IsStart())
 			{
-				std::thread t(&DoStart, subProcessName, parentHandle, url, showTitleBar, x, y, width, height);
+				std::thread t(&NplCefBrowser::DoStart, &browser, subProcessName, parentHandle, url, showTitleBar, withControl, x, y, width, height);
 				t.detach();
 			}
 			else
@@ -186,7 +183,7 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, url, x, y, width, height);
 				browser.PostTask(task);
 			}
-		}*/
+		}
 	}
 }
 

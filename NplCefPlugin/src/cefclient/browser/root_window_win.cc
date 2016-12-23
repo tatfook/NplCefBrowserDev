@@ -295,14 +295,14 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   DWORD dwStyle;
   dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
 
-  /*if (m->ShowTitleBar())
+  if (m->ShowTitleBar())
   {
 	  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
   }
   else
   {
-	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN;
-  }*/
+	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_SIZEBOX;
+  }
   int x, y, width, height;
   if (::IsRectEmpty(&start_rect_)) {
     // Use the default window position/size.
@@ -327,13 +327,16 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
                        x, y, width, height,
 	  parentHandle, NULL, hInstance, NULL);
   CHECK(hwnd_);
- /* if (!m->ShowTitleBar())
+  if (!m->ShowTitleBar())
   {
 	  SetWindowLong(parentHandle, GWL_STYLE, GetWindowLong(parentHandle, GWL_STYLE) | WS_CLIPCHILDREN);
-  }*/
+  }
   // Associate |this| with the main window.
   SetUserDataPtr(hwnd_, this);
 
+  //how to set LayeredWindowAttributes https://msdn.microsoft.com/en-us/magazine/ee819134.aspx
+  //SetWindowLong(hwnd_, GWL_STYLE, GetWindowLong(hwnd_, GWL_STYLE) | WS_EX_LAYERED);
+  //SetLayeredWindowAttributes(hwnd_, 0, 0, LWA_ALPHA);
   RECT rect;
   GetClientRect(hwnd_, &rect);
 

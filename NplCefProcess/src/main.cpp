@@ -16,7 +16,6 @@ int main(int argc, char* argv[]) {
 	CefScopedSandboxInfo scoped_sandbox;
 	sandbox_info = scoped_sandbox.sandbox_info();
 #endif
-
 	// Provide CEF with command-line arguments.
 	CefMainArgs main_args;
 

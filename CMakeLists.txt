@@ -5,7 +5,11 @@
 cmake_minimum_required(VERSION 2.6)
 project (NplCefBrowser)
 
-
+add_definitions(-D_INT32)
+add_definitions(-D_UINT32)
+add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+add_definitions(-DNOMINMAX)
+add_definitions(-DCEF_USE_SANDBOX)
 
 set (BoostRoot_DIR "$ENV{BOOST_ROOT}")
 set (CEF3_DIR "${PROJECT_SOURCE_DIR}/deps/cef3")
@@ -14,35 +18,24 @@ set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
 
 set( OUTPUT_BIN_DIR "${NPLRuntime_Absolutely_DIR}/ParaWorld/cef3" )
 
-# cef
-add_subdirectory ("${CEF3_DIR}")
-set_target_properties(libcef_dll_wrapper
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY ${CEF3_DIR}
-	LIBRARY_OUTPUT_DIRECTORY ${CEF3_DIR}
-)
-# # NplCefPlugin
-# add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefPlugin")
-# set_target_properties(NplCefPlugin
-# 	PROPERTIES
-# 	RUNTIME_OUTPUT_DIRECTORY ${CEF3_DIR}
-# 	ARCHIVE_OUTPUT_DIRECTORY ${CEF3_DIR}
-# 	LIBRARY_OUTPUT_DIRECTORY ${CEF3_DIR}
-# )
-# # NplCefProcess
-# add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefProcess")
-# set_target_properties(NplCefProcess
-# 	PROPERTIES
-# 	RUNTIME_OUTPUT_DIRECTORY ${CEF3_DIR}
-# 	ARCHIVE_OUTPUT_DIRECTORY ${CEF3_DIR}
-# 	LIBRARY_OUTPUT_DIRECTORY ${CEF3_DIR}
-# )
+# Libraries required by cef_sandbox.lib.
+set(CEF_SANDBOX_STANDARD_LIBS
+      dbghelp.lib
+      psapi.lib
+      version.lib
+      winmm.lib
+      )
 
-# NplCefPlugin
-add_subdirectory ("${PROJECT_SOURCE_DIR}/HelloWorldPlugin")
-set_target_properties(HelloWorldPlugin
-	PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY ${CEF3_DIR}
-	ARCHIVE_OUTPUT_DIRECTORY ${CEF3_DIR}
-	LIBRARY_OUTPUT_DIRECTORY ${CEF3_DIR}
+# Standard libraries.
+set(CEF_STANDARD_LIBS
+	comctl32.lib
+	rpcrt4.lib
+	shlwapi.lib
+	ws2_32.lib
 )
+# NplCefProcess
+add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefProcess")
+# NplCefPlugin
+add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefPlugin")
+
+

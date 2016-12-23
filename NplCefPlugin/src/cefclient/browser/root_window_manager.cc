@@ -225,14 +225,14 @@ void RootWindowManager::SetParentHandle(HWND wnd)
 	mParentHandle = wnd;
 }
 
-//void RootWindowManager::SetShowTitleBar(bool v)
-//{
-//	mShowTitleBar = v;
-//}
-//
-//bool RootWindowManager::ShowTitleBar()
-//{
-//	return mShowTitleBar;
-//}
+void RootWindowManager::SetShowTitleBar(bool v)
+{
+	mShowTitleBar = v;
+}
+
+bool RootWindowManager::ShowTitleBar()
+{
+	return mShowTitleBar;
+}
 
 }  // namespace client

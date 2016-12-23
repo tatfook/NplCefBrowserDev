@@ -32,6 +32,7 @@ NPL.activate(dll_name,{ cmd = "createOrOpen",
                         parentHandle = ParaEngine.GetAttributeObject():GetField("AppHWND", 0),
                         url = "http://www.wikicraft.cn/",
                         showTitleBar = true,
+                        withControl = true,
                         x = 0, y = 0, width = 400, height = 300, 
 }); 
 

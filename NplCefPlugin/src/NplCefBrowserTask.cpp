@@ -19,11 +19,11 @@ NplCefBrowserTask::~NplCefBrowserTask()
 
 void NplCefBrowserTask::Execute()
 {
-	/*NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+	NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
 	if (!mUrl.empty())
 	{
 		browser.Open(mUrl, mX, mY, mWidth, mHeight);
-	}*/
+	}
 }
 
 void NplCefBrowserTask::AddRef() const

@@ -145,7 +145,14 @@ void __attribute__((constructor)) DllMain()
 #endif
 }
 #pragma endregion PE_DLL 
-
+void DoStart(std::string subProcessName, int parentHandle, std::string window_id, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height)
+{
+	NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+	if (&browser)
+	{
+		browser.DoStart(subProcessName, parentHandle, window_id, url, showTitleBar, withControl, x, y, width, height);
+	}
+}
 CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 {
 	if (nType == ParaEngine::PluginActType_STATE)
@@ -159,9 +166,12 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 
 		const std::string& subProcessName = tabMsg["subProcessName"];
 		double parentHandle = tabMsg["parentHandle"];
+		const std::string& id = tabMsg["id"];
 		const std::string& url = tabMsg["url"];
 		bool showTitleBar = tabMsg["showTitleBar"];
 		bool withControl = tabMsg["withControl"];
+		bool resize = tabMsg["resize"];
+		bool visible = tabMsg["visible"];
 		double x = tabMsg["x"];
 		double y = tabMsg["y"];
 		double width = tabMsg["width"];
@@ -171,18 +181,47 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 
 		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
 
-		if (sCmd == "createOrOpen")
+		if (sCmd == "CreateOrOpen")
 		{
 			if (!browser.IsStart())
 			{
-				std::thread t(&NplCefBrowser::DoStart, &browser, subProcessName, parentHandle, url, showTitleBar, withControl, x, y, width, height);
+				std::thread t(DoStart, subProcessName, parentHandle, id, url, showTitleBar, withControl, x, y, width, height);
 				t.detach();
 			}
 			else
 			{
-				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, url, x, y, width, height);
+				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, id, url, resize, x, y, width, height);
 				browser.PostTask(task);
 			}
+		}
+		else if (sCmd == "Quit")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Quit, id);
+			browser.PostTask(task);
+		}
+		else if (sCmd == "ChangePosSize")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::ChangePosSize, id, url, resize, x, y, width, height);
+			browser.PostTask(task);
+		}
+		else if (sCmd == "Show")
+		{
+			if (visible)
+			{
+				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Show, id);
+				browser.PostTask(task);
+			}
+			else
+			{
+				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Hide, id);
+				browser.PostTask(task);
+			}
+			
+		}
+		else if (sCmd == "Delete")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Delete, id);
+			browser.PostTask(task);
 		}
 	}
 }

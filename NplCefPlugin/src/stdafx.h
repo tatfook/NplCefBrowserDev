@@ -9,3 +9,4 @@
 #include <windows.h>
 #include <wchar.h>
 #include <string.h>
+#include <map>

@@ -4,10 +4,10 @@
 class NplCefBrowserTask :public CefTask {
 public:
 	enum class TaskTypes {
-		Open
+		None, Open, ChangePosSize, Delete, Show, Hide, Quit
 	};
 public:
-	NplCefBrowserTask(TaskTypes type = TaskTypes::Open, const std::string& url = "", int x = 0, int y = 0, int width = 0, int height = 0);
+	NplCefBrowserTask(TaskTypes type = TaskTypes::None, const std::string& window_id = "", const std::string& url = "", bool resize = false, int x = 0, int y = 0, int width = 0, int height = 0);
 	~NplCefBrowserTask();
 	void Execute() OVERRIDE;
 
@@ -17,7 +17,9 @@ public:
 
 private:
 	TaskTypes mType;
+	std::string mID;
 	std::string mUrl;
+	bool mResize;
 	int mX;
 	int mY;
 	int mWidth;

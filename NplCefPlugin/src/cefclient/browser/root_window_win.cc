@@ -301,7 +301,7 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   }
   else
   {
-	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN | WS_SIZEBOX;
+	  dwStyle = WS_CHILD | WS_VISIBLE | WS_CLIPCHILDREN;
   }
   int x, y, width, height;
   if (::IsRectEmpty(&start_rect_)) {

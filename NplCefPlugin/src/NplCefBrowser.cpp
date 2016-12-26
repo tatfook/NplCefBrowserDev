@@ -46,7 +46,7 @@ bool NplCefBrowser::IsStart()
 	return mStart;
 }
 
-void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height)
+void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::string winID, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height)
 {
 	if (mStart)
 	{
@@ -70,7 +70,7 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	// Parse command-line arguments.
 	CefRefPtr<CefCommandLine> command_line = CefCommandLine::CreateCommandLine();
 	command_line->InitFromString(::GetCommandLineW());
-
+	command_line->AppendArgument("disable-extensions");
 	// Create a ClientApp of the correct type.
 	CefRefPtr<CefApp> app;
 	ClientApp::ProcessType process_type = ClientApp::GetProcessType(command_line);
@@ -105,17 +105,13 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	test_runner::RegisterSchemeHandlers();
 	context->GetRootWindowManager()->SetParentHandle(hWnd);
 	context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
+	mStart = true;
+
 	// Create the first window.
 	if (!url.empty())
 	{
-		CefRect rect(x, y, width, height);
-		context->GetRootWindowManager()->CreateRootWindow(
-			mWithControl,  // Show controls.
-			false,
-			rect,   // windows size.
-			url);   // Use default URL.
+		Open(winID, url, true, x, y, width, height);
 	}
-	mStart = true;
 	// Run the message loop. This will block until Quit() is called by the
 	// RootWindowManager after all windows have been destroyed.
 	int result = message_loop->Run();
@@ -126,6 +122,7 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	// Release objects in reverse order of creation.
 	message_loop.reset();
 	context.reset();
+	DoEnd();
 }
 
 void NplCefBrowser::DoEnd()
@@ -133,21 +130,83 @@ void NplCefBrowser::DoEnd()
 	mStart = false;
 }
 
-void NplCefBrowser::Open(std::string url, int x, int y, int width, int height)
+void NplCefBrowser::Open(std::string winID, std::string url, bool resize, int x, int y, int width, int height)
 {
 	if (!mStart)
 	{
 		return;
 	}
-	if (!url.empty())
+	// we need a id for create root window
+	if (winID.empty())
+	{
+		return;
+	}
+	RootWindowPtr p = GetRootWindow(winID);
+
+	if (p == NULL)
 	{
 		CefRect rect(x, y, width, height);
 		RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
-		m->CreateRootWindow(
+		p = m->CreateRootWindow(
 			mWithControl,
 			false,
 			rect,   // windows size.
 			url);   // Use default URL.
+		AddRootWindow(winID, p);
+	}else 
+	{
+		p->GetBrowser().get()->GetMainFrame().get()->LoadURL(url);
+		if (resize)
+		{
+			p->SetBounds(x, y, width, height);
+		}
+	}
+	
+}
+
+void NplCefBrowser::SetWindowPos(std::string winID, int x, int y, int width, int height)
+{
+	RootWindowPtr p = GetRootWindow(winID);
+	if (p)
+	{
+		p->SetBounds(x, y, width, height);
+	}
+	
+}
+
+void NplCefBrowser::SetVisible(std::string winID, bool visible)
+{
+	RootWindowPtr p = GetRootWindow(winID);
+	if (p)
+	{
+		if (visible)
+		{
+			p->Show(RootWindow::ShowMode::ShowNormal);
+		}
+		else
+		{
+			p->Hide();
+		}
+	}
+}
+
+void NplCefBrowser::Delete(std::string winID)
+{
+	RootWindowPtr p = GetRootWindow(winID);
+	if (p)
+	{
+		p->Close(true);
+		DeleteRootWindow(winID);
+	}
+}
+
+void NplCefBrowser::Quit()
+{
+
+	RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
+	if (m)
+	{
+		m->CloseAllWindows(true);
 	}
 }
 
@@ -155,4 +214,36 @@ void NplCefBrowser::PostTask(NplCefBrowserTask* task)
 {
 	CefRefPtr<NplCefBrowserTask> t(task);
 	mMessageLoop->PostTask(t);
+}
+
+RootWindowPtr NplCefBrowser::GetRootWindow(std::string& id)
+{
+	if (id.empty())
+	{
+		return RootWindowPtr();
+	}
+	std::map<std::string, RootWindowPtr>::iterator it = mRootWindows.find(id);
+	if (it != mRootWindows.end())
+	{
+		return it->second;
+	}
+	else {
+		return RootWindowPtr();
+	}
+}
+
+void NplCefBrowser::AddRootWindow(std::string& id, RootWindowPtr pWindow)
+{
+	RootWindowPtr p = GetRootWindow(id);
+	if (pWindow == NULL || p != NULL)
+	{
+		return;
+	}
+	mRootWindows[id] = pWindow;
+}
+
+void NplCefBrowser::DeleteRootWindow(std::string& id)
+{
+	std::map<std::string, RootWindowPtr>::iterator it = mRootWindows.find(id);
+	mRootWindows.erase(it);
 }

@@ -145,14 +145,6 @@ void __attribute__((constructor)) DllMain()
 #endif
 }
 #pragma endregion PE_DLL 
-void DoStart(std::string subProcessName, int parentHandle, std::string window_id, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height)
-{
-	NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
-	if (&browser)
-	{
-		browser.DoStart(subProcessName, parentHandle, window_id, url, showTitleBar, withControl, x, y, width, height);
-	}
-}
 CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 {
 	if (nType == ParaEngine::PluginActType_STATE)
@@ -164,65 +156,70 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		NPLInterface::NPLObjectProxy tabMsg = NPLInterface::NPLHelper::MsgStringToNPLTable(sMsg);
 		const std::string& sCmd = tabMsg["cmd"];
 
-		const std::string& subProcessName = tabMsg["subProcessName"];
+		NplCefBrowser::BrowserParams params;
+		params.subProcessName = tabMsg["subProcessName"];
 		double parentHandle = tabMsg["parentHandle"];
-		const std::string& id = tabMsg["id"];
-		const std::string& url = tabMsg["url"];
-		bool showTitleBar = tabMsg["showTitleBar"];
-		bool withControl = tabMsg["withControl"];
-		bool resize = tabMsg["resize"];
-		bool visible = tabMsg["visible"];
+		params.parentHandle = parentHandle;
+		params.id = tabMsg["id"];
+		params.url = tabMsg["url"];
+		params.showTitleBar = tabMsg["showTitleBar"];
+		params.withControl = tabMsg["withControl"];
+		params.resize = tabMsg["resize"];
+		params.visible = tabMsg["visible"];
 		double x = tabMsg["x"];
 		double y = tabMsg["y"];
 		double width = tabMsg["width"];
 		double height = tabMsg["height"];
+		params.x = x;
+		params.y = y;
+		params.width = width;
+		params.height = height;
 
 		OUTPUT_LOG("NplCefBrowser activate:%s", sCmd.c_str());
 
 		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
 
-		if (sCmd == "CreateOrOpen")
+		if (sCmd == "Start")
 		{
 			if (!browser.IsStart())
 			{
-				std::thread t(DoStart, subProcessName, parentHandle, id, url, showTitleBar, withControl, x, y, width, height);
+				std::thread t(&NplCefBrowser::DoTask, &browser, NplCefBrowser::TaskTypes::Start, params);
 				t.detach();
 			}
-			else
-			{
-				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Open, id, url, resize, x, y, width, height);
-				browser.PostTask(task);
-			}
 		}
-		else if (sCmd == "Quit")
+		else if (sCmd == "End")
 		{
-			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Quit, id);
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::End, params);
+			browser.PostTask(task);
+		}
+		else if (sCmd == "Open")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Open, params);
 			browser.PostTask(task);
 		}
 		else if (sCmd == "ChangePosSize")
 		{
-			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::ChangePosSize, id, url, resize, x, y, width, height);
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::ChangePosSize, params);
+			browser.PostTask(task);
+		}
+		else if (sCmd == "Delete")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Delete, params);
 			browser.PostTask(task);
 		}
 		else if (sCmd == "Show")
 		{
-			if (visible)
-			{
-				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Show, id);
-				browser.PostTask(task);
-			}
-			else
-			{
-				NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Hide, id);
-				browser.PostTask(task);
-			}
-			
-		}
-		else if (sCmd == "Delete")
-		{
-			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowserTask::TaskTypes::Delete, id);
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Show, params);
 			browser.PostTask(task);
 		}
+
+		else if (sCmd == "Quit")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Quit, params);
+			browser.PostTask(task);
+		}
+		
+		
 	}
 }
 

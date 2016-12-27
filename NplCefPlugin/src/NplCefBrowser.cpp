@@ -25,7 +25,6 @@ using namespace client;
 
 NplCefBrowser::NplCefBrowser()
 	:mStart(false)
-	, mWithControl(true)
 {
 
 }
@@ -46,16 +45,16 @@ bool NplCefBrowser::IsStart()
 	return mStart;
 }
 
-void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::string winID, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height)
+void NplCefBrowser::Start(BrowserParams& params)
 {
 	if (mStart)
 	{
 		return;
 	}
-	HWND hWnd = (HWND)parentHandle;
+	std::string subProcessName = params.subProcessName;
+	HWND hWnd = (HWND)params.parentHandle;
+	bool showTitleBar = params.showTitleBar;
 
-	mParentHandle = hWnd;
-	mWithControl = withControl;
 	CefMainArgs main_args(NULL);
 
 	void* sandbox_info = NULL;
@@ -106,12 +105,6 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	context->GetRootWindowManager()->SetParentHandle(hWnd);
 	context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
 	mStart = true;
-
-	// Create the first window.
-	if (!url.empty())
-	{
-		Open(winID, url, true, x, y, width, height);
-	}
 	// Run the message loop. This will block until Quit() is called by the
 	// RootWindowManager after all windows have been destroyed.
 	int result = message_loop->Run();
@@ -122,37 +115,45 @@ void NplCefBrowser::DoStart(std::string subProcessName, int parentHandle, std::s
 	// Release objects in reverse order of creation.
 	message_loop.reset();
 	context.reset();
-	DoEnd();
+	End();
 }
 
-void NplCefBrowser::DoEnd()
+void NplCefBrowser::End()
 {
 	mStart = false;
 }
 
-void NplCefBrowser::Open(std::string winID, std::string url, bool resize, int x, int y, int width, int height)
+void NplCefBrowser::Open(BrowserParams& params)
 {
 	if (!mStart)
 	{
 		return;
 	}
+	std::string id = params.id;
+	std::string url = params.url;
+	bool resize = params.resize;
+	int x = params.x;
+	int y = params.y;
+	int width = params.width;
+	int height = params.height;
+	int withControl = params.withControl;
 	// we need a id for create root window
-	if (winID.empty())
+	if (id.empty())
 	{
 		return;
 	}
-	RootWindowPtr p = GetRootWindow(winID);
+	RootWindowPtr p = GetRootWindow(id);
 
 	if (p == NULL)
 	{
 		CefRect rect(x, y, width, height);
 		RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
 		p = m->CreateRootWindow(
-			mWithControl,
+			withControl,
 			false,
 			rect,   // windows size.
 			url);   // Use default URL.
-		AddRootWindow(winID, p);
+		AddRootWindow(id, p);
 	}else 
 	{
 		p->GetBrowser().get()->GetMainFrame().get()->LoadURL(url);
@@ -164,22 +165,22 @@ void NplCefBrowser::Open(std::string winID, std::string url, bool resize, int x,
 	
 }
 
-void NplCefBrowser::SetWindowPos(std::string winID, int x, int y, int width, int height)
+void NplCefBrowser::ChangePosSize(BrowserParams& params)
 {
-	RootWindowPtr p = GetRootWindow(winID);
+	RootWindowPtr p = GetRootWindow(params.id);
 	if (p)
 	{
-		p->SetBounds(x, y, width, height);
+		p->SetBounds(params.x, params.y, params.width, params.height);
 	}
 	
 }
 
-void NplCefBrowser::SetVisible(std::string winID, bool visible)
+void NplCefBrowser::Show(BrowserParams& params)
 {
-	RootWindowPtr p = GetRootWindow(winID);
+	RootWindowPtr p = GetRootWindow(params.id);
 	if (p)
 	{
-		if (visible)
+		if (params.visible)
 		{
 			p->Show(RootWindow::ShowMode::ShowNormal);
 		}
@@ -190,13 +191,13 @@ void NplCefBrowser::SetVisible(std::string winID, bool visible)
 	}
 }
 
-void NplCefBrowser::Delete(std::string winID)
+void NplCefBrowser::Delete(BrowserParams& params)
 {
-	RootWindowPtr p = GetRootWindow(winID);
+	RootWindowPtr p = GetRootWindow(params.id);
 	if (p)
 	{
 		p->Close(true);
-		DeleteRootWindow(winID);
+		DeleteRootWindow(params.id);
 	}
 }
 
@@ -207,6 +208,38 @@ void NplCefBrowser::Quit()
 	if (m)
 	{
 		m->CloseAllWindows(true);
+	}
+}
+
+void NplCefBrowser::DoTask(TaskTypes type, BrowserParams& params)
+{
+	if (type == TaskTypes::Start)
+	{
+		Start(params);
+	}
+	else if (type == TaskTypes::End)
+	{
+		End();
+	}
+	else if (type == TaskTypes::Open)
+	{
+		Open(params);
+	}
+	else if (type == TaskTypes::ChangePosSize)
+	{
+		ChangePosSize(params);
+	}
+	else if (type == TaskTypes::Delete)
+	{
+		Delete(params);
+	}
+	else if (type == TaskTypes::Show)
+	{
+		Show(params);
+	}
+	else if (type == TaskTypes::Quit)
+	{
+		Quit();
 	}
 }
 

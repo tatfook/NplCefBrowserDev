@@ -11,31 +11,45 @@ typedef scoped_refptr<client::RootWindow> RootWindowPtr;
 
 class NplCefBrowser {
 public:
-
 	NplCefBrowser();
 	~NplCefBrowser();
+	enum class TaskTypes {
+		None, Start, End, Open, ChangePosSize, Delete, Show, Quit
+	};
+	struct BrowserParams
+	{
+		std::string subProcessName;
+		int parentHandle;
+		std::string id;
+		std::string url;
+		bool showTitleBar = false;
+		bool withControl = false;
+		int x = 0;
+		int y = 0;
+		int width = 800;
+		int height = 600;
+		bool visible = true;
+		bool resize = true;
+	};
+	void DoTask(TaskTypes type, BrowserParams& params);
 	static NplCefBrowser& CreateGetSingleton();
 	bool IsStart();
-	void DoStart(std::string subProcessName, int parentHandle, std::string winID, std::string url, bool showTitleBar, bool withControl, int x, int y, int width, int height);
-	void DoEnd();
-
-	void Open(std::string winID, std::string url, bool resize, int x, int y, int width, int height);
-	void SetWindowPos(std::string winID, int x, int y, int width, int height);
-	void SetVisible(std::string winID, bool visible);
-	void Delete(std::string winID);
-	void Quit();
-
-
 	void PostTask(NplCefBrowserTask* task);
 private:
+	void Start(BrowserParams& params);
+	void End();
+	void Open(BrowserParams& params);
+	void ChangePosSize(BrowserParams& params);
+	void Show(BrowserParams& params);
+	void Delete(BrowserParams& params);
+	void Quit();
+
 	RootWindowPtr GetRootWindow(std::string& id);
 	void AddRootWindow(std::string& id, RootWindowPtr pWindow);
 	void DeleteRootWindow(std::string& id);
 
 private:
 	bool mStart;
-	HWND mParentHandle;
 	client::MainMessageLoopMultithreadedWin* mMessageLoop;
-	bool mWithControl;
 	std::map<std::string, RootWindowPtr> mRootWindows;
 };

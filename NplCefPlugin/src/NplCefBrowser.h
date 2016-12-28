@@ -14,7 +14,7 @@ public:
 	NplCefBrowser();
 	~NplCefBrowser();
 	enum class TaskTypes {
-		None, Start, End, Open, ChangePosSize, Delete, Show, Quit
+		None, Start, Open, ChangePosSize, Delete, Show, Quit
 	};
 	struct BrowserParams
 	{

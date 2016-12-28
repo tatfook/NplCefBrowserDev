@@ -26,27 +26,16 @@ NCefWorkSpace
 ```
 ```lua
 --test code
-local dll_name = "cef3/NplCefPlugin.dll";
-NPL.activate(dll_name,{ cmd = "CreateOrOpen",
-                        subProcessName = "cef3/NplCefProcess.exe",
-                        parentHandle = ParaEngine.GetAttributeObject():GetField("AppHWND", 0),
-                        id = "test_win",
-                        url = "http://www.wikicraft.cn/",
-                        showTitleBar = false,
-                        withControl = false,
-                        x = 0, y = 0, width = 400, height = 300, 
-}); 
-local dll_name = "cef3/NplCefPlugin.dll";
+local id = "test_win";
+local dll_name = "cef3/NplCefPlugin_d.dll";
+local subProcessName = "cef3/NplCefProcess_d.exe";
+local parentHandle = ParaEngine.GetAttributeObject():GetField("AppHWND", 0);
+NPL.activate(dll_name,{ cmd = "Start", subProcessName = subProcessName, parentHandle = parentHandle, showTitleBar = false, }); 
+NPL.activate(dll_name,{ cmd = "Open", id = id, url = "http://www.wikicraft.cn/", withControl = false, x = 0, y = 0, width = 400, height = 300, }); 
+NPL.activate(dll_name,{ cmd = "ChangePosSize", id = id, x = 100, y = 100, width = 200, height = 200, }); 
+NPL.activate(dll_name,{ cmd = "Show", id = id, visible = false, }); 
+NPL.activate(dll_name,{ cmd = "Delete", id = id, }); 
 NPL.activate(dll_name,{ cmd = "Quit"}); 
-
-local dll_name = "cef3/NplCefPlugin.dll";
-NPL.activate(dll_name,{ cmd = "change_pos_size", id = "test_win", x = 100, y = 100, width = 400, height = 300, }); 
-
-local dll_name = "cef3/NplCefPlugin.dll";
-NPL.activate(dll_name,{ cmd = "Show", id = "test_win", visible = false,  }); 
-
-local dll_name = "cef3/NplCefPlugin.dll";
-NPL.activate(dll_name,{ cmd = "CreateOrOpen", id = "test_win", url = "http://www.baidu.com/", }); 
 ```
 ```lua
 deps/cef3/include/cef_v8.h

@@ -144,7 +144,7 @@ void NplCefBrowser::Open(BrowserParams& params)
 	}
 	RootWindowPtr p = GetRootWindow(id);
 
-	if (p == NULL)
+	if (p.get() == NULL)
 	{
 		CefRect rect(x, y, width, height);
 		RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
@@ -156,11 +156,16 @@ void NplCefBrowser::Open(BrowserParams& params)
 		AddRootWindow(id, p);
 	}else 
 	{
-		p->GetBrowser().get()->GetMainFrame().get()->LoadURL(url);
-		if (resize)
+		CefBrowser* b = p->GetBrowser().get();
+		if (b)
 		{
-			p->SetBounds(x, y, width, height);
+			b->GetMainFrame().get()->LoadURL(url);
+			if (resize)
+			{
+				p->SetBounds(x, y, width, height);
+			}
 		}
+		
 	}
 	
 }
@@ -168,7 +173,7 @@ void NplCefBrowser::Open(BrowserParams& params)
 void NplCefBrowser::ChangePosSize(BrowserParams& params)
 {
 	RootWindowPtr p = GetRootWindow(params.id);
-	if (p)
+	if (p.get())
 	{
 		p->SetBounds(params.x, params.y, params.width, params.height);
 	}
@@ -178,7 +183,7 @@ void NplCefBrowser::ChangePosSize(BrowserParams& params)
 void NplCefBrowser::Show(BrowserParams& params)
 {
 	RootWindowPtr p = GetRootWindow(params.id);
-	if (p)
+	if (p.get())
 	{
 		if (params.visible)
 		{
@@ -194,7 +199,7 @@ void NplCefBrowser::Show(BrowserParams& params)
 void NplCefBrowser::Delete(BrowserParams& params)
 {
 	RootWindowPtr p = GetRootWindow(params.id);
-	if (p)
+	if (p.get())
 	{
 		p->Close(true);
 		DeleteRootWindow(params.id);
@@ -216,10 +221,6 @@ void NplCefBrowser::DoTask(TaskTypes type, BrowserParams& params)
 	if (type == TaskTypes::Start)
 	{
 		Start(params);
-	}
-	else if (type == TaskTypes::End)
-	{
-		End();
 	}
 	else if (type == TaskTypes::Open)
 	{
@@ -268,7 +269,7 @@ RootWindowPtr NplCefBrowser::GetRootWindow(std::string& id)
 void NplCefBrowser::AddRootWindow(std::string& id, RootWindowPtr pWindow)
 {
 	RootWindowPtr p = GetRootWindow(id);
-	if (pWindow == NULL || p != NULL)
+	if (pWindow.get() == NULL || p.get() != NULL)
 	{
 		return;
 	}

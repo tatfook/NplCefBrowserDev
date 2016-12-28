@@ -187,11 +187,6 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 				t.detach();
 			}
 		}
-		else if (sCmd == "End")
-		{
-			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::End, params);
-			browser.PostTask(task);
-		}
 		else if (sCmd == "Open")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Open, params);

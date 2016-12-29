@@ -105,6 +105,14 @@ void NplCefBrowser::Start(BrowserParams& params)
 	context->GetRootWindowManager()->SetParentHandle(hWnd);
 	context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
 	mStart = true;
+	// We need a internal browser to block the termination of message_loop,when others browsers had been destroyed.
+	BrowserParams first_browser_params;
+	first_browser_params.id = "first_browser";
+	first_browser_params.withControl = false;
+	first_browser_params.url = "";
+	first_browser_params.width = 0;
+	first_browser_params.height = 0;
+	Open(first_browser_params);
 	// Run the message loop. This will block until Quit() is called by the
 	// RootWindowManager after all windows have been destroyed.
 	int result = message_loop->Run();
@@ -132,6 +140,7 @@ void NplCefBrowser::Open(BrowserParams& params)
 	std::string id = params.id;
 	std::string url = params.url;
 	bool resize = params.resize;
+	bool visible = params.visible;
 	int x = params.x;
 	int y = params.y;
 	int width = params.width;
@@ -164,18 +173,27 @@ void NplCefBrowser::Open(BrowserParams& params)
 			{
 				p->SetBounds(x, y, width, height);
 			}
+			if (visible)
+			{
+				p->Show(RootWindow::ShowMode::ShowNormal);
+			}
 		}
 		
 	}
 	
 }
 
+
 void NplCefBrowser::ChangePosSize(BrowserParams& params)
 {
 	RootWindowPtr p = GetRootWindow(params.id);
 	if (p.get())
 	{
-		p->SetBounds(params.x, params.y, params.width, params.height);
+		CefBrowser* b = p->GetBrowser().get();
+		if (b)
+		{
+			p->SetBounds(params.x, params.y, params.width, params.height);
+		}
 	}
 	
 }
@@ -185,14 +203,19 @@ void NplCefBrowser::Show(BrowserParams& params)
 	RootWindowPtr p = GetRootWindow(params.id);
 	if (p.get())
 	{
-		if (params.visible)
+		CefBrowser* b = p->GetBrowser().get();
+		if (b)
 		{
-			p->Show(RootWindow::ShowMode::ShowNormal);
+			if (params.visible)
+			{
+				p->Show(RootWindow::ShowMode::ShowNormal);
+			}
+			else
+			{
+				p->Hide();
+			}
 		}
-		else
-		{
-			p->Hide();
-		}
+		
 	}
 }
 
@@ -201,8 +224,13 @@ void NplCefBrowser::Delete(BrowserParams& params)
 	RootWindowPtr p = GetRootWindow(params.id);
 	if (p.get())
 	{
-		p->Close(true);
-		DeleteRootWindow(params.id);
+		CefBrowser* b = p->GetBrowser().get();
+		if (b)
+		{
+			p->Close(true);
+			DeleteRootWindow(params.id);
+		}
+		
 	}
 }
 

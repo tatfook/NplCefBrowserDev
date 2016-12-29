@@ -3,11 +3,11 @@
 #include "include/cef_app.h"
 #include "include/cef_sandbox_win.h"
 
-int main(int argc, char* argv[]) {
-
-	// Enable High-DPI support on Windows 7 or newer.
-	//CefEnableHighDPISupport();
-
+int WinMain(HINSTANCE hInstance,
+	HINSTANCE hPrevInstance,
+	LPTSTR    lpCmdLine,
+	int       nCmdShow)
+{
 	void* sandbox_info = NULL;
 
 #if defined(CEF_USE_SANDBOX)

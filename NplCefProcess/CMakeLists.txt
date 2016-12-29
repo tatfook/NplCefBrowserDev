@@ -38,7 +38,8 @@ IF(MSVC)
 	 # generate program database (PDB symbol files even in release build)
 	SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /Zi")
 	SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /Zi")
-	
+
+
 ENDIF()
 
 
@@ -50,6 +51,7 @@ link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
 add_executable(NplCefProcess ${NplCefProcess_Source_files})
 set_target_properties(NplCefProcess PROPERTIES OUTPUT_NAME "NplCefProcess")
 set_target_properties(NplCefProcess PROPERTIES DEBUG_OUTPUT_NAME "NplCefProcess_d")
+set_target_properties(NplCefProcess PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS") 
 target_link_libraries(NplCefProcess libcef cef_sandbox libcef_dll_wrapper "${CEF_STANDARD_LIBS}" "${CEF_SANDBOX_STANDARD_LIBS}")
 
 file(GLOB  CEF3_ALL_BINARY_FILES "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.dll" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.exe" "${CEF3_DIR}/${CMAKE_BUILD_TYPE}/*.bin")

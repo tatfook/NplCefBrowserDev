@@ -41,6 +41,7 @@ enum client_menu_ids {
   CLIENT_ID_TESTMENU_RADIOITEM1,
   CLIENT_ID_TESTMENU_RADIOITEM2,
   CLIENT_ID_TESTMENU_RADIOITEM3,
+  CLIENT_ID_CLOSEWINDOW,
 };
 
 // Musr match the value in client_renderer.cc.
@@ -228,17 +229,17 @@ void ClientHandler::OnBeforeContextMenu(
 
   if ((params->GetTypeFlags() & (CM_TYPEFLAG_PAGE | CM_TYPEFLAG_FRAME)) != 0) {
     // Add a separator if the menu already has items.
-    if (model->GetCount() > 0)
-      model->AddSeparator();
+    //if (model->GetCount() > 0)
+    //  model->AddSeparator();
 
-    // Add DevTools items to all context menus.
-    model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
-    model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
-    model->AddSeparator();
-    model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
+    //// Add DevTools items to all context menus.
+    //model->AddItem(CLIENT_ID_SHOW_DEVTOOLS, "&Show DevTools");
+    //model->AddItem(CLIENT_ID_CLOSE_DEVTOOLS, "Close DevTools");
+    //model->AddSeparator();
+    //model->AddItem(CLIENT_ID_INSPECT_ELEMENT, "Inspect Element");
 
-    // Test context menu features.
-    BuildTestMenu(model);
+    //// Test context menu features.
+    //BuildTestMenu(model);
   }
 }
 
@@ -261,6 +262,7 @@ bool ClientHandler::OnContextMenuCommand(
       ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
       return true;
     default:  // Allow default handling, if any.
+      ShowDevTools(browser, CefPoint(params->GetXCoord(), params->GetYCoord()));
       return ExecuteTestMenu(command_id);
   }
 }

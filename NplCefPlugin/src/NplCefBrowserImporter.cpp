@@ -166,6 +166,7 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		params.withControl = tabMsg["withControl"];
 		params.resize = tabMsg["resize"];
 		params.visible = tabMsg["visible"];
+		params.enabled = tabMsg["enabled"];
 		double x = tabMsg["x"];
 		double y = tabMsg["y"];
 		double width = tabMsg["width"];
@@ -175,7 +176,7 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		params.width = width;
 		params.height = height;
 
-		OUTPUT_LOG("NplCefBrowser activate:%s", sCmd.c_str());
+		OUTPUT_LOG("NplCefBrowser activate:%s\n", sCmd.c_str());
 
 		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
 
@@ -207,7 +208,11 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Show, params);
 			browser.PostTask(task);
 		}
-
+		else if (sCmd == "EnableWindow")
+		{
+			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::EnableWindow, params);
+			browser.PostTask(task);
+		}
 		else if (sCmd == "Quit")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Quit, params);

@@ -14,7 +14,7 @@ public:
 	NplCefBrowser();
 	~NplCefBrowser();
 	enum class TaskTypes {
-		None, Start, Open, ChangePosSize, Delete, Show, Quit
+		None, Start, Open, ChangePosSize, Delete, Show, EnableWindow, Quit
 	};
 	struct BrowserParams
 	{
@@ -30,6 +30,7 @@ public:
 		int height = 600;
 		bool visible = true;
 		bool resize = true;
+		bool enabled = true;
 	};
 	void DoTask(TaskTypes type, BrowserParams& params);
 	static NplCefBrowser& CreateGetSingleton();
@@ -43,6 +44,7 @@ private:
 	void Show(BrowserParams& params);
 	void Delete(BrowserParams& params);
 	void Quit();
+	void EnableWindow(BrowserParams& params);
 
 	RootWindowPtr GetRootWindow(std::string& id);
 	void AddRootWindow(std::string& id, RootWindowPtr pWindow);

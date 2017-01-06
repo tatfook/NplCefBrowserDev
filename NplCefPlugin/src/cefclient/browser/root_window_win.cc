@@ -1,7 +1,7 @@
 // Copyright (c) 2015 The Chromium Embedded Framework Authors. All rights
 // reserved. Use of this source code is governed by a BSD-style license that
 // can be found in the LICENSE file.
-
+#include "NPLInterface.hpp"
 #include "cefclient/browser/root_window_win.h"
 
 #include "include/base/cef_bind.h"
@@ -293,8 +293,6 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
 
   RootWindowManager* m = MainContext::Get()->GetRootWindowManager();
   DWORD dwStyle;
-  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
-
   if (m->ShowTitleBar())
   {
 	  dwStyle = WS_OVERLAPPEDWINDOW | WS_VISIBLE;
@@ -334,12 +332,9 @@ void RootWindowWin::CreateRootWindow(const CefBrowserSettings& settings) {
   // Associate |this| with the main window.
   SetUserDataPtr(hwnd_, this);
 
-  //how to set LayeredWindowAttributes https://msdn.microsoft.com/en-us/magazine/ee819134.aspx
-  //SetWindowLong(hwnd_, GWL_STYLE, GetWindowLong(hwnd_, GWL_STYLE) | WS_EX_LAYERED);
-  //SetLayeredWindowAttributes(hwnd_, 0, 0, LWA_ALPHA);
+  
   RECT rect;
   GetClientRect(hwnd_, &rect);
-
   if (with_controls_) {
     // Create the child controls.
     int x_offset = 0;

@@ -214,6 +214,17 @@ void NplCefBrowser::Show(BrowserParams& params)
 			{
 				p->Hide();
 			}
+
+			//HWND hWnd = p->GetWindowHandle();
+			////Using LayeredWindowAttributes https://msdn.microsoft.com/en-us/magazine/ee819134.aspx
+			////https://msdn.microsoft.com/en-us/library/windows/desktop/ms632598(v=vs.85).aspx#layered_win
+			//SetWindowLong(hWnd, GWL_EXSTYLE, GetWindowLong(hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+			//bool result = SetLayeredWindowAttributes(hWnd, RGB(255, 255, 255), 0, LWA_COLORKEY);
+			//if (!result)
+			//{
+
+			//	OUTPUT_LOG("error: failed to SetLayeredWindowAttributes on windows. error code is %d\n", GetLastError());
+			//}
 		}
 		
 	}
@@ -244,6 +255,20 @@ void NplCefBrowser::Quit()
 	}
 }
 
+void NplCefBrowser::EnableWindow(BrowserParams& params)
+{
+	RootWindowPtr p = GetRootWindow(params.id);
+	if (p.get())
+	{
+		CefBrowser* b = p->GetBrowser().get();
+		if (b)
+		{
+			::EnableWindow(p->GetWindowHandle(), params.enabled);
+		}
+
+	}
+}
+
 void NplCefBrowser::DoTask(TaskTypes type, BrowserParams& params)
 {
 	if (type == TaskTypes::Start)
@@ -265,6 +290,10 @@ void NplCefBrowser::DoTask(TaskTypes type, BrowserParams& params)
 	else if (type == TaskTypes::Show)
 	{
 		Show(params);
+	}
+	else if (type == TaskTypes::EnableWindow)
+	{
+		EnableWindow(params);
 	}
 	else if (type == TaskTypes::Quit)
 	{

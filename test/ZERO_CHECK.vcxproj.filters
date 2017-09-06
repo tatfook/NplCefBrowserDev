@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\CMakeFiles\8d1cee284a790f195aaf556ddb4675c5\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{12E796D3-63B2-3B48-BE18-A55579D9AD7C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

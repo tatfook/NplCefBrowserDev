@@ -6,11 +6,10 @@
 - Download [NplCefBrowserDev](https://github.com/tatfook/NplCefBrowserDev.git) and upzip it into [NCefWorkSpace/NplCefBrowserDev]
 - Download cef3 binary [Branch 2704-Windows 32bit](https://cefbuilds.com/) and unzip into:[NCefWorkSpace/NplCefBrowserDev/deps/cef3]
 - Build NPLRumtime(Optional):Please see [NCefWorkSpace/NPLRuntime/build_win32.bat]
-- Open Developer Command Prompt for VS2015 and run NCefWorkSpace/NplCefBrowserDev/build-debug.bat or NCefWorkSpace/NplCefBrowserDev/build-release.bat  
-- Setp 1: Build libcef_dll_wrapper.lib
-- Setp 2: Build NplCefProcess.exe
-- Setp 3: Build NplCefPlugin.dll
-- After built successfully, all binary files will locate at: NCefWorkSpace/NPLRuntime/ParaWorld/cef3
+- Run NCefWorkSpace/NplCefBrowserDev/create-solution.bat
+- Msbuild deps/cef3/sln/Win32/cef.sln
+- Msbuild sln/Win32/NplCefBrowser.sln
+- After build successfully, all binary files will locate at: NCefWorkSpace/NPLRuntime/ParaWorld/cef3
 
 ### Main Folder's structure
 ```lua

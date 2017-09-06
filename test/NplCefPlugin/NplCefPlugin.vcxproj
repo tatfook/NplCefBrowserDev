@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{C6577344-484C-3B24-B438-06D6E99631AC}</ProjectGUID>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>NplCefPlugin</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+    <PropertyGroup>
+      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\Debug\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NplCefPlugin.dir\Debug\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NplCefPlugin_d</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\Release\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NplCefPlugin.dir\Release\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NplCefPlugin</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\MinSizeRel\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">NplCefPlugin.dir\MinSizeRel\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">NplCefPlugin</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\RelWithDebInfo\</OutDir>
+      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">NplCefPlugin.dir\RelWithDebInfo\</IntDir>
+      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">NplCefPlugin</TargetName>
+      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+    </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR="Debug";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR=\"Debug\";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Debug/NplCefPlugin_d.dll F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_100_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_200_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_extensions.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/devtools_resources.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/icudtl.dat F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/am.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ar.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bg.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ca.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/cs.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/da.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/de.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/el.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-GB.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-US.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es-419.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/et.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fa.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fil.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/gu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/he.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/id.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/it.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ja.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/kn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ko.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lt.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ml.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/mr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ms.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nb.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-BR.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-PT.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ro.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ru.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sw.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ta.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/te.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/th.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/tr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/uk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/vi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-CN.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-TW.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libcef.lib;cef_sandbox.lib;..\deps\cef3\libcef_dll_wrapper\Debug\libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/$(Configuration);F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Debug/NplCefPlugin_d.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Debug/NplCefPlugin_d.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <StringPooling>true</StringPooling>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;NDEBUG;_NDEBUG;CMAKE_INTDIR="Release";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;NDEBUG;_NDEBUG;CMAKE_INTDIR=\"Release\";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Release/NplCefPlugin.dll F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_100_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_200_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_extensions.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/devtools_resources.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/icudtl.dat F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/am.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ar.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bg.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ca.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/cs.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/da.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/de.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/el.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-GB.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-US.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es-419.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/et.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fa.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fil.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/gu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/he.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/id.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/it.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ja.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/kn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ko.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lt.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ml.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/mr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ms.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nb.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-BR.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-PT.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ro.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ru.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sw.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ta.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/te.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/th.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/tr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/uk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/vi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-CN.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-TW.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libcef.lib;cef_sandbox.lib;..\deps\cef3\libcef_dll_wrapper\Release\libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/$(Configuration);F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Release/NplCefPlugin.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/Release/NplCefPlugin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR="MinSizeRel";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR=\"MinSizeRel\";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/MinSizeRel/NplCefPlugin.dll F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_100_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_200_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_extensions.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/devtools_resources.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/icudtl.dat F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/am.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ar.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bg.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ca.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/cs.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/da.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/de.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/el.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-GB.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-US.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es-419.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/et.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fa.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fil.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/gu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/he.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/id.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/it.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ja.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/kn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ko.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lt.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ml.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/mr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ms.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nb.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-BR.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-PT.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ro.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ru.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sw.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ta.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/te.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/th.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/tr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/uk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/vi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-CN.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-TW.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libcef.lib;cef_sandbox.lib;..\deps\cef3\libcef_dll_wrapper\MinSizeRel\libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/$(Configuration);F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>No</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/MinSizeRel/NplCefPlugin.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/MinSizeRel/NplCefPlugin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4100;4127;4244;4481;4512;4701;4702;4996</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level4</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR="RelWithDebInfo";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_INT32;_UINT32;_CRT_SECURE_NO_WARNINGS;NOMINMAX;CEF_USE_SANDBOX;__STDC_CONSTANT_MACROS;__STDC_FORMAT_MACROS;WIN32;_WIN32;_WINDOWS;UNICODE;_UNICODE;WINVER=0x0602;_WIN32_WINNT=0x602;WIN32_LEAN_AND_MEAN;_HAS_EXCEPTIONS=0;PSAPI_VERSION=1;CEF_USE_ATL;CMAKE_INTDIR=\"RelWithDebInfo\";NplCefPlugin_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\Core;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\renderer;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\math;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\util;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\..\NPLRuntime\Client\trunk\ParaEngineClient\IO;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\deps\cef3;F:\Libs\boost\boost_1_61_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <PostBuildEvent>
+      <Message></Message>
+      <Command>setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E make_directory F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/RelWithDebInfo/NplCefPlugin.dll F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_100_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_200_percent.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/cef_extensions.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/devtools_resources.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/icudtl.dat F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3
+if %errorlevel% neq 0 goto :cmEnd
+"D:\Program Files\CMake\bin\cmake.exe" -E copy F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/am.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ar.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bg.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/bn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ca.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/cs.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/da.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/de.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/el.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-GB.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/en-US.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es-419.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/es.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/et.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fa.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fil.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/fr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/gu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/he.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/hu.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/id.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/it.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ja.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/kn.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ko.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lt.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/lv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ml.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/mr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ms.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nb.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/nl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-BR.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/pt-PT.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ro.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ru.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sl.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sv.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/sw.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/ta.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/te.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/th.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/tr.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/uk.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/vi.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-CN.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/Resources/locales/zh-TW.pak F:/pe_git/NCefWorkSpace/NplCefBrowserDev/../NPLRuntime/ParaWorld/cef3/locales
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+    </PostBuildEvent>
+    <Link>
+      <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;libcef.lib;cef_sandbox.lib;..\deps\cef3\libcef_dll_wrapper\RelWithDebInfo\libcef_dll_wrapper.lib;comctl32.lib;rpcrt4.lib;shlwapi.lib;ws2_32.lib;dbghelp.lib;psapi.lib;version.lib;winmm.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/$(Configuration);F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper;F:/pe_git/NCefWorkSpace/NplCefBrowserDev/deps/cef3/libcef_dll_wrapper/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/RelWithDebInfo/NplCefPlugin.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/NplCefPlugin/RelWithDebInfo/NplCefPlugin.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+      <Version></Version>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HF:/pe_git/NCefWorkSpace/NplCefBrowserDev -BF:/pe_git/NCefWorkSpace/NplCefBrowserDev/test --check-stamp-file F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HF:/pe_git/NCefWorkSpace/NplCefBrowserDev -BF:/pe_git/NCefWorkSpace/NplCefBrowserDev/test --check-stamp-file F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HF:/pe_git/NCefWorkSpace/NplCefBrowserDev -BF:/pe_git/NCefWorkSpace/NplCefBrowserDev/test --check-stamp-file F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -HF:/pe_git/NCefWorkSpace/NplCefBrowserDev -BF:/pe_git/NCefWorkSpace/NplCefBrowserDev/test --check-stamp-file F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:/pe_git/NCefWorkSpace/NplCefBrowserDev/NplCefPlugin/CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">F:\pe_git\NCefWorkSpace\NplCefBrowserDev\test\NplCefPlugin\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\NplCefBrowser.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\NplCefBrowserTask.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\stdafx.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_app.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_app_other.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_switches.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\scheme_test_common.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\binding_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window_osr_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window_std_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\bytes_write_handler.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_app_browser.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler_osr.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler_std.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_types.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\dialog_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\geometry_util.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_context.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_context_impl.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop_multithreaded_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop_std.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_dragdrop_events.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_dragdrop_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_renderer.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_window_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\preferences_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\resource.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\resource_util.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\response_filter_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_manager.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_views.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\scheme_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\temp_window.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\temp_window_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\test_runner.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\urlrequest_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\util_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\views_window.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner_views.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner_win.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\client_app_renderer.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\client_renderer.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\performance_test.h" />
+    <ClInclude Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\performance_test_setup.h" />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\NplCefBrowser.cpp"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\NplCefBrowserImporter.cpp"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\NplCefBrowserTask.cpp"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_app.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_app_delegates_common.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_app_other.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\client_switches.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\common\scheme_test_common.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\binding_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window_osr_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\browser_window_std_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\bytes_write_handler.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_app_browser.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_app_delegates_browser.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler_osr.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\client_handler_std.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\dialog_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\geometry_util.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_context.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_context_impl.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_context_impl_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop_multithreaded_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\main_message_loop_std.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_dragdrop_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_renderer.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\osr_window_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\preferences_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\resource_util.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\resource_util_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\response_filter_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_create.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_manager.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_views.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\root_window_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\scheme_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\temp_window_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\test_runner.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\urlrequest_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\util_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\views_window.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner_views.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\browser\window_test_runner_win.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\client_app_delegates_renderer.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\client_app_renderer.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\client_renderer.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\performance_test.cc"  />
+    <ClCompile Include="F:\pe_git\NCefWorkSpace\NplCefBrowserDev\NplCefPlugin\src\cefclient\renderer\performance_test_tests.cc"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/ZERO_CHECK.vcxproj">
+      <Project>A11A57BA-8B71-3C0C-9258-08B8C732802D</Project>
+    </ProjectReference>
+    <ProjectReference Include="F:/pe_git/NCefWorkSpace/NplCefBrowserDev/test/deps/cef3/libcef_dll_wrapper/libcef_dll_wrapper.vcxproj">
+      <Project>693A7ADE-DF6A-341E-BA14-FDBA0968C765</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

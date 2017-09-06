@@ -46,6 +46,7 @@ ENDIF()
 SET(CMAKE_DEBUG_POSTFIX "_d")
 
 link_directories(${CEF3_DIR}/${CMAKE_BUILD_TYPE})
+link_directories(${CEF3_DIR}/${CEF3_WRAPPER_LIB_DIR}/${CMAKE_BUILD_TYPE})
 
 # add the executable
 add_executable(NplCefProcess ${NplCefProcess_Source_files})

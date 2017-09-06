@@ -11,6 +11,8 @@ add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DNOMINMAX)
 add_definitions(-DCEF_USE_SANDBOX)
 
+
+
 set (BoostRoot_DIR "$ENV{BOOST_ROOT}")
 set (CEF3_DIR "${PROJECT_SOURCE_DIR}/deps/cef3")
 set(NPLRuntime_DIR "../NPLRuntime" CACHE STRING "")
@@ -33,9 +35,9 @@ set(CEF_STANDARD_LIBS
 	shlwapi.lib
 	ws2_32.lib
 )
+
 # NplCefProcess
 add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefProcess")
 # NplCefPlugin
 add_subdirectory ("${PROJECT_SOURCE_DIR}/NplCefPlugin")
-
 

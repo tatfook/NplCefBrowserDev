@@ -5,6 +5,8 @@
 
 namespace client {
 	class MainMessageLoopMultithreadedWin;
+	class MainContextImpl;
+	class MainMessageLoop;
 }
 class NplCefBrowserTask;
 typedef scoped_refptr<client::RootWindow> RootWindowPtr;
@@ -33,7 +35,7 @@ public:
 		bool enabled = true;
 	};
 	void DoTask(TaskTypes type, BrowserParams& params);
-	static NplCefBrowser& CreateGetSingleton();
+	static NplCefBrowser* CreateGetSingleton();
 	bool IsStart();
 	void PostTask(NplCefBrowserTask* task);
 private:
@@ -52,6 +54,8 @@ private:
 
 private:
 	bool mStart;
-	client::MainMessageLoopMultithreadedWin* mMessageLoop;
 	std::map<std::string, RootWindowPtr> mRootWindows;
+	static NplCefBrowser* m_pInstance;
+	scoped_ptr<client::MainContextImpl> m_context;
+	scoped_ptr<client::MainMessageLoop> m_message_loop;
 };

@@ -178,45 +178,45 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 
 		OUTPUT_LOG("NplCefBrowser activate:%s\n", sCmd.c_str());
 
-		NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
+		NplCefBrowser* browser = NplCefBrowser::CreateGetSingleton();
 
 		if (sCmd == "Start")
 		{
-			if (!browser.IsStart())
+			if (!browser->IsStart())
 			{
-				std::thread t(&NplCefBrowser::DoTask, &browser, NplCefBrowser::TaskTypes::Start, params);
+				std::thread t(&NplCefBrowser::DoTask, browser, NplCefBrowser::TaskTypes::Start, params);
 				t.detach();
 			}
 		}
 		else if (sCmd == "Open")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Open, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		else if (sCmd == "ChangePosSize")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::ChangePosSize, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		else if (sCmd == "Delete")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Delete, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		else if (sCmd == "Show")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Show, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		else if (sCmd == "EnableWindow")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::EnableWindow, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		else if (sCmd == "Quit")
 		{
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Quit, params);
-			browser.PostTask(task);
+			browser->PostTask(task);
 		}
 		
 		

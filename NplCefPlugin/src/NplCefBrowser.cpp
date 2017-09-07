@@ -23,6 +23,7 @@
 #include "NplCefBrowserTask.h"
 using namespace client;
 
+NplCefBrowser* NplCefBrowser::m_pInstance = nullptr;
 NplCefBrowser::NplCefBrowser()
 	:mStart(false)
 {
@@ -31,13 +32,15 @@ NplCefBrowser::NplCefBrowser()
 
 NplCefBrowser::~NplCefBrowser()
 {
-
 }
 
-NplCefBrowser& NplCefBrowser::CreateGetSingleton()
+NplCefBrowser* NplCefBrowser::CreateGetSingleton()
 {
-	static NplCefBrowser g_singleton;
-	return g_singleton;
+	if (m_pInstance == nullptr)
+	{
+		m_pInstance = new NplCefBrowser();
+	}
+	return m_pInstance;
 }
 
 bool NplCefBrowser::IsStart()
@@ -81,31 +84,29 @@ void NplCefBrowser::Start(BrowserParams& params)
 		app = new ClientAppOther();
 
 	// Create the main context object.
-	scoped_ptr<MainContextImpl> context(new MainContextImpl(command_line, true));
+	m_context.reset(new MainContextImpl(command_line, true));
 	CefSettings settings;
 	// Specify the path for the sub-process executable.
 	CefString(&settings.browser_subprocess_path).FromASCII(subProcessName.c_str());
 
 #if !defined(CEF_USE_SANDBOX)
-	settings.no_sandbox = true;
+	//settings.no_sandbox = true;
 #endif
 
 	// Populate the settings based on command line arguments.
-	context->PopulateSettings(&settings);
+	m_context->PopulateSettings(&settings);
 	settings.multi_threaded_message_loop = true;
 	// Create the main message loop object.
-	mMessageLoop = new MainMessageLoopMultithreadedWin;
-	scoped_ptr<MainMessageLoop> message_loop(mMessageLoop);
-
+	m_message_loop.reset(new MainMessageLoopMultithreadedWin);
 	// Initialize CEF.
-	context->Initialize(main_args, settings, app, sandbox_info);
+	m_context->Initialize(main_args, settings, app, sandbox_info);
 
 	// Register scheme handlers.
 	test_runner::RegisterSchemeHandlers();
-	context->GetRootWindowManager()->SetParentHandle(hWnd);
-	context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
+	m_context->GetRootWindowManager()->SetParentHandle(hWnd);
+	m_context->GetRootWindowManager()->SetShowTitleBar(showTitleBar);
 	mStart = true;
-	// We need a internal browser to block the termination of message_loop,when others browsers had been destroyed.
+	// We need a internal browser to block the termination of m_message_loop,when others browsers had been destroyed.
 	BrowserParams first_browser_params;
 	first_browser_params.id = "first_browser";
 	first_browser_params.withControl = false;
@@ -115,14 +116,15 @@ void NplCefBrowser::Start(BrowserParams& params)
 	Open(first_browser_params);
 	// Run the message loop. This will block until Quit() is called by the
 	// RootWindowManager after all windows have been destroyed.
-	int result = message_loop->Run();
+	int result = m_message_loop->Run();
 
 	// Shut down CEF.
-	context->Shutdown();
+	m_context->Shutdown();
 
 	// Release objects in reverse order of creation.
-	message_loop.reset();
-	context.reset();
+	m_message_loop.reset();
+	m_context.reset();
+
 	End();
 }
 
@@ -253,6 +255,7 @@ void NplCefBrowser::Quit()
 	{
 		m->CloseAllWindows(true);
 	}
+	mRootWindows.clear();
 }
 
 void NplCefBrowser::EnableWindow(BrowserParams& params)
@@ -304,7 +307,7 @@ void NplCefBrowser::DoTask(TaskTypes type, BrowserParams& params)
 void NplCefBrowser::PostTask(NplCefBrowserTask* task)
 {
 	CefRefPtr<NplCefBrowserTask> t(task);
-	mMessageLoop->PostTask(t);
+	m_message_loop->PostTask(t);
 }
 
 RootWindowPtr NplCefBrowser::GetRootWindow(std::string& id)

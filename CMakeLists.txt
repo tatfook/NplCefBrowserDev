@@ -9,7 +9,7 @@ add_definitions(-D_INT32)
 add_definitions(-D_UINT32)
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DNOMINMAX)
-add_definitions(-DCEF_USE_SANDBOX)
+#add_definitions(-DCEF_USE_SANDBOX)
 
 
 

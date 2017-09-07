@@ -8,6 +8,6 @@ NplCefBrowserTask::NplCefBrowserTask(NplCefBrowser::TaskTypes type, NplCefBrowse
 }
 void NplCefBrowserTask::Execute()
 {
-	NplCefBrowser& browser = NplCefBrowser::CreateGetSingleton();
-	browser.DoTask(mType, mParams);
+	NplCefBrowser* browser = NplCefBrowser::CreateGetSingleton();
+	browser->DoTask(mType, mParams);
 }

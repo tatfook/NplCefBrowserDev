@@ -21,7 +21,7 @@ public:
 	struct BrowserParams
 	{
 		std::string subProcessName;
-		int parentHandle;
+		intptr_t parentHandle;
 		std::string id;
 		std::string url;
 		bool showTitleBar = false;

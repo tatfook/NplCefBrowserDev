@@ -159,7 +159,7 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 		NplCefBrowser::BrowserParams params;
 		params.subProcessName = tabMsg["subProcessName"];
 		double parentHandle = tabMsg["parentHandle"];
-		params.parentHandle = parentHandle;
+		params.parentHandle = (intptr_t)parentHandle;
 		params.id = tabMsg["id"];
 		params.url = tabMsg["url"];
 		params.showTitleBar = tabMsg["showTitleBar"];

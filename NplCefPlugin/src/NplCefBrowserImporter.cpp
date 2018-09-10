@@ -180,16 +180,28 @@ CORE_EXPORT_DECL void LibActivate(int nType, void* pVoid)
 
 		NplCefBrowser* browser = NplCefBrowser::CreateGetSingleton();
 
+		static bool bStarting = false;
 		if (sCmd == "Start")
 		{
-			if (!browser->IsStart())
+			if (!bStarting && !browser->IsStart())
 			{
+				bStarting = true;
 				std::thread t(&NplCefBrowser::DoTask, browser, NplCefBrowser::TaskTypes::Start, params);
 				t.detach();
 			}
 		}
-		else if (sCmd == "Open")
+		else if(bStarting)
 		{
+			while (!browser->IsStart())
+			{
+				Sleep(500);
+			}
+			bStarting = false;
+		}
+
+		if (sCmd == "Open")
+		{
+			
 			NplCefBrowserTask* task = new NplCefBrowserTask(NplCefBrowser::TaskTypes::Open, params);
 			browser->PostTask(task);
 		}

@@ -22,6 +22,8 @@ if ("$ENV{NPLRUNTIME_ROOT}" STREQUAL "")
       set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
       set(ParaEngineClient_SOURCE_DIR ${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient)
 else()
+	set(NPLRuntime_DIR "$ENV{NPLRUNTIME_ROOT}" CACHE STRING "")
+	set (NPLRuntime_Absolutely_DIR ${NPLRuntime_DIR})
 	set(ParaEngineClient_SOURCE_DIR $ENV{NPLRUNTIME_ROOT}/Client/trunk/ParaEngineClient)
 endif()
 

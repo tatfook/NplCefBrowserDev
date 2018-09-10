@@ -4,14 +4,14 @@
 
 #include "cefclient/renderer/client_app_renderer.h"
 #include "cefclient/renderer/client_renderer.h"
-#include "cefclient/renderer/performance_test.h"
+//#include "cefclient/renderer/performance_test.h"
 
 namespace client {
 
 // static
 void ClientAppRenderer::CreateDelegates(DelegateSet& delegates) {
   renderer::CreateDelegates(delegates);
-  performance_test::CreateDelegates(delegates);
+  //performance_test::CreateDelegates(delegates);
 }
 
 }  // namespace client

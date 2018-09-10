@@ -15,8 +15,17 @@ add_definitions(-DNOMINMAX)
 
 set (BoostRoot_DIR "$ENV{BOOST_ROOT}")
 set (CEF3_DIR "${PROJECT_SOURCE_DIR}/deps/cef3")
-set(NPLRuntime_DIR "../NPLRuntime" CACHE STRING "")
-set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
+
+if ("$ENV{NPLRUNTIME_ROOT}" STREQUAL "")
+      message("NPLRUNTIME_ROOT environment variable not set")
+      set(NPLRuntime_DIR "../NPLRuntime" CACHE STRING "")
+      set (NPLRuntime_Absolutely_DIR "${PROJECT_SOURCE_DIR}/${NPLRuntime_DIR}")
+      set(ParaEngineClient_SOURCE_DIR ${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient)
+else()
+	set(ParaEngineClient_SOURCE_DIR $ENV{NPLRUNTIME_ROOT}/Client/trunk/ParaEngineClient)
+endif()
+
+
 
 set( OUTPUT_BIN_DIR "${NPLRuntime_Absolutely_DIR}/ParaWorld/cef3" )
 

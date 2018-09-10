@@ -18,7 +18,7 @@ file (GLOB src_files ${PROJECT_SOURCE_DIR}/src/*.*)
 SOURCE_GROUP("src" FILES ${src_files}) 
 list(APPEND NplCefProcess_Source_files ${src_files})
 
-include_directories("${NPLRuntime_Absolutely_DIR}/Client/trunk/ParaEngineClient/Core")
+include_directories("${ParaEngineClient_SOURCE_DIR}/Core")
 include_directories("${PROJECT_SOURCE_DIR}/src")
 include_directories("${CEF3_DIR}")
 
